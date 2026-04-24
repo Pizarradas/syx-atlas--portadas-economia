@@ -1,0 +1,1345 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>La Divisa · Edición Premium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700;1,900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     LA DIVISA · PREMIUM
+     Mobile-first. Breakpoints:
+       base : 0–599    · móvil (1 col)
+       md   : ≥ 600    · tablet pequeño
+       lg   : ≥ 900    · tablet / desktop estrecho
+       xl   : ≥ 1200   · desktop amplio
+     ========================================================= */
+
+  :root{
+    --paper:#f4efe6;
+    --paper-2:#ebe4d4;
+    --card:#fbf8f0;
+    --ink:#15120d;
+    --ink-soft:#332d24;
+    --ink-mute:#7a6f5c;
+    --rule:#cbc0a6;
+    --rule-soft:#dccfae;
+    --rule-hair:#bfb396;
+    --brass:#8a6d2a;
+    --brass-deep:#5e4813;
+    --brass-light:#b79553;
+    --claret:oklch(0.36 0.105 22);
+    --up:oklch(0.46 0.12 149);
+    --down:oklch(0.44 0.16 22);
+
+    --wrap-pad:20px;
+    --hero-pad:32px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.6;font-weight:400;-webkit-text-size-adjust:100%}
+  body{
+    background:
+      radial-gradient(circle at 18% 10%, oklch(0.94 0.012 80 / 0.5), transparent 40%),
+      radial-gradient(circle at 82% 60%, oklch(0.92 0.02 70 / 0.35), transparent 45%),
+      var(--paper);
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{max-width:100%;display:block}
+
+  h1,h2,h3,h4,h5{font-family:"Playfair Display",Georgia,serif;font-weight:700;letter-spacing:-.01em;margin:0;color:var(--ink);text-wrap:balance}
+  h1{font-size:clamp(2rem, 1.4rem + 3vw, 5.4rem);line-height:1.02;letter-spacing:-.02em;font-weight:600}
+  h2{font-size:clamp(1.5rem, 1.1rem + 1.8vw, 3rem);line-height:1.06;font-weight:600}
+  h3{font-size:20px;line-height:1.25;font-weight:700}
+  h4{font-size:17px;line-height:1.3;font-weight:600}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 var(--wrap-pad);width:100%}
+
+  /* ───────── Pre bar ───────── */
+  .pre{border-bottom:1px solid var(--rule-hair)}
+  .pre-inner{
+    display:flex;justify-content:space-between;align-items:center;
+    min-height:32px;padding:8px 0;gap:12px;flex-wrap:wrap;
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-mute)
+  }
+  .pre-inner .crest{display:inline-flex;align-items:center;gap:10px;color:var(--brass-deep);font-weight:500}
+  .pre-inner .crest svg{width:14px;height:14px;flex-shrink:0}
+  .pre-inner .hide-sm{display:none}
+  @media (min-width:600px){
+    .pre-inner{flex-wrap:nowrap}
+    .pre-inner .hide-sm{display:inline}
+  }
+
+  /* ───────── Markets ticker ───────── */
+  .ticker{
+    background:var(--ink);color:#f0e8d5;height:40px;display:flex;align-items:center;
+    font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:400;overflow:hidden;
+    border-top:1px solid var(--brass-deep);border-bottom:1px solid var(--brass-deep);
+    position:relative
+  }
+  .ticker .tag{
+    padding:0 14px;height:100%;display:flex;align-items:center;
+    font-weight:500;letter-spacing:.22em;text-transform:uppercase;font-size:9.5px;
+    flex-shrink:0;font-family:"Inter",sans-serif;color:var(--brass-light);
+    background:var(--ink);
+    border-right:1px solid rgba(183,149,83,.3);
+    position:relative;z-index:2;
+    box-shadow:8px 0 10px -4px var(--ink)
+  }
+  .ticker .track-wrap{flex:1;min-width:0;overflow:hidden;position:relative}
+  .ticker .track-wrap::after{
+    content:"";position:absolute;top:0;right:0;bottom:0;width:28px;
+    background:linear-gradient(270deg, var(--ink), transparent);
+    pointer-events:none;z-index:2
+  }
+  .ticker .track{display:flex;gap:30px;padding:0 18px;white-space:nowrap;animation:tscroll 90s linear infinite;will-change:transform}
+  .ticker .it{display:inline-flex;gap:8px;align-items:baseline}
+  .ticker .it .lbl{color:#9a8d6f;letter-spacing:.04em}
+  .ticker .it b{color:#fbf8f0;font-weight:500}
+  .ticker .up{color:oklch(0.74 0.12 149)}
+  .ticker .dn{color:oklch(0.74 0.13 22)}
+  @keyframes tscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (min-width:900px){
+    .ticker{height:42px;font-size:11.5px}
+    .ticker .tag{padding:0 20px;font-size:10px;letter-spacing:.24em}
+    .ticker .track{gap:44px;padding:0 28px}
+    .ticker .it{gap:10px}
+    .ticker .it .lbl{letter-spacing:.06em}
+  }
+
+  /* ═════════════════════════════════════════
+     MASTHEAD — two separate implementations
+     (mobile ≤ 899 vs desktop ≥ 900)
+     ═════════════════════════════════════════ */
+  .masthead{padding:20px 0 10px}
+
+  /* MOBILE masthead (base) ----------------- */
+  .mast-mobile{display:block}
+  .mast-desktop{display:none}
+
+  .mast-mobile-top{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid var(--rule-hair)
+  }
+  .mast-mobile-date{
+    font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--ink-soft);font-weight:500;line-height:1.3
+  }
+  .mast-mobile-menu{
+    width:40px;height:40px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;padding:0
+  }
+  .mast-mobile-menu svg{width:18px;height:18px}
+
+  .wordmark-mobile{
+    font-family:"Playfair Display",serif;font-weight:500;font-style:italic;
+    font-size:clamp(56px, 16vw, 90px);
+    line-height:.88;letter-spacing:-.035em;color:var(--ink);
+    text-align:center;padding:8px 0 4px
+  }
+  .wordmark-mobile .the{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    font-family:"Cormorant Garamond",serif;font-style:italic;
+    font-weight:400;font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--brass-deep);margin-bottom:2px
+  }
+  .wordmark-mobile .the::before,.wordmark-mobile .the::after{content:"";flex:0 0 18px;height:1px;background:var(--brass-light)}
+  .wordmark-mobile .founded{
+    display:block;font-family:"Cormorant Garamond",serif;font-style:italic;
+    font-weight:400;font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--brass-deep);margin-top:6px;opacity:.9
+  }
+
+  .mast-mobile-today{
+    margin-top:18px;padding:16px 0;border-top:1px solid var(--rule-hair);border-bottom:1px solid var(--rule-hair);
+    display:flex;gap:20px;align-items:flex-start
+  }
+  .mast-mobile-today > div{flex:1;min-width:0}
+  .mast-mobile-today .k{
+    display:block;font-family:"Inter",sans-serif;font-weight:500;
+    font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--brass-deep);margin-bottom:8px
+  }
+  .mast-mobile-today .k::before{content:"§ ";color:var(--brass);font-family:"Playfair Display",serif;font-style:italic}
+  .mast-mobile-today .body{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:14px;line-height:1.4;
+    color:var(--ink-soft);font-weight:400
+  }
+  .mast-mobile-today .num{
+    font-family:"Playfair Display",serif;font-style:italic;font-weight:600;
+    font-size:30px;color:var(--claret);line-height:1;display:block;
+    margin:2px 0 6px;letter-spacing:-.02em
+  }
+
+  .mast-mobile-actions{
+    margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px
+  }
+  .mast-btn{
+    border:1px solid var(--ink);padding:10px 14px;border-radius:0;
+    font-family:"Inter",sans-serif;font-weight:500;font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;cursor:pointer;background:transparent;color:var(--ink);
+    transition:all .25s;text-align:center;white-space:nowrap
+  }
+  .mast-btn:hover{background:var(--ink);color:var(--paper)}
+  .mast-btn--sub{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .mast-btn--sub::before{content:"◆ ";color:var(--brass-light);font-size:10px}
+  .mast-btn--sub:hover{background:var(--brass-deep);border-color:var(--brass-deep)}
+
+  /* DESKTOP masthead (≥ 900) ---------------- */
+  @media (min-width:900px){
+    .mast-mobile{display:none}
+    .mast-desktop{display:block}
+    .masthead{padding:28px 0 10px}
+
+    .mast-top{
+      display:grid;grid-template-columns:1fr auto 1fr;gap:28px;align-items:center;
+      font-size:11px;color:var(--ink-mute);margin-bottom:22px;
+      padding-bottom:16px;border-bottom:1px solid var(--rule-hair)
+    }
+    .mast-date{
+      text-transform:uppercase;letter-spacing:.22em;font-weight:500;color:var(--ink-soft);
+      font-family:"JetBrains Mono",monospace;font-size:10px
+    }
+    .mast-logo-crest{
+      display:flex;align-items:center;justify-content:center;gap:14px;color:var(--brass-deep);
+      font-family:"Playfair Display",serif;font-style:italic;font-size:12px;letter-spacing:.08em
+    }
+    .mast-logo-crest svg{width:22px;height:22px}
+    .mast-actions{display:flex;gap:12px;align-items:center;justify-self:end}
+
+    .mast-main{
+      display:grid;grid-template-columns:1fr auto 1fr;gap:40px;align-items:end;padding:14px 0 20px
+    }
+    .mast-side{
+      font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--ink-soft);
+      font-size:17px;line-height:1.45;max-width:24ch;padding-bottom:20px;font-weight:400
+    }
+    .mast-side.r{text-align:right;margin-left:auto;justify-self:end}
+    .mast-side .k{
+      display:block;font-family:"Inter",sans-serif;font-weight:500;
+      font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--brass-deep);font-style:normal;margin-bottom:10px
+    }
+    .mast-side .k::before{content:"§";color:var(--brass);margin-right:6px;font-family:"Playfair Display",serif;font-style:italic}
+    .mast-side.r .k::before{content:"";margin:0}
+    .mast-side.r .k::after{content:"§";color:var(--brass);margin-left:6px;font-family:"Playfair Display",serif;font-style:italic}
+    .mast-side .num{
+      font-family:"Playfair Display",serif;font-style:italic;font-weight:600;
+      font-size:34px;color:var(--claret);line-height:1;display:block;
+      margin:4px 0 6px;letter-spacing:-.02em
+    }
+
+    .wordmark{
+      font-family:"Playfair Display",serif;font-weight:500;font-style:italic;
+      font-size:clamp(72px, 8vw, 148px);
+      line-height:.88;letter-spacing:-.035em;color:var(--ink);text-align:center;
+      position:relative;padding:0 20px
+    }
+    .wordmark .the{
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      font-family:"Cormorant Garamond",serif;font-style:italic;
+      font-weight:400;font-size:.19em;letter-spacing:.32em;text-transform:uppercase;
+      color:var(--brass-deep);margin-bottom:-.1em
+    }
+    .wordmark .the::before,.wordmark .the::after{content:"";flex:0 0 24px;height:1px;background:var(--brass-light)}
+    .wordmark .founded{
+      display:block;font-family:"Cormorant Garamond",serif;font-style:italic;
+      font-weight:400;font-size:.1em;letter-spacing:.3em;text-transform:uppercase;
+      color:var(--brass-deep);margin-top:.25em;opacity:.9
+    }
+  }
+
+  /* Triple rule divider */
+  .mast-rules{padding:6px 0 0}
+  .mast-rules hr{border:0;margin:0;background:var(--ink)}
+  .mast-rules .r1{height:2px;margin-bottom:2px}
+  .mast-rules .r2{height:.5px;margin-bottom:5px}
+  .mast-rules .r3{height:.5px}
+  @media (min-width:900px){.mast-rules{padding:12px 0 0}}
+
+  /* ───────── Section nav ───────── */
+  .sec-nav{background:var(--paper);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--ink)}
+  .sec-nav-inner{
+    display:flex;justify-content:space-between;align-items:center;
+    height:48px;gap:12px
+  }
+  .sec-nav ul{
+    display:flex;gap:22px;padding:0 0 0 0;margin:0;list-style:none;
+    font-family:"Playfair Display",serif;font-weight:500;font-size:13px;letter-spacing:.04em;font-style:italic;
+    overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;flex:1;min-width:0;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity
+  }
+  .sec-nav ul::-webkit-scrollbar{display:none}
+  .sec-nav li{scroll-snap-align:start}
+  .sec-nav li a{
+    color:var(--ink-soft);padding:6px 0;border-bottom:1px solid transparent;
+    transition:all .25s;display:inline-block;white-space:nowrap
+  }
+  .sec-nav li a:hover{color:var(--brass-deep)}
+  .sec-nav li.active a{color:var(--ink);border-bottom-color:var(--brass)}
+  .sec-nav-right{
+    display:none;gap:18px;align-items:center;
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);
+    white-space:nowrap;letter-spacing:.08em;flex-shrink:0
+  }
+  .sec-nav-right .live{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.14em}
+  .sec-nav-right .live::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--claret);display:inline-block;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  @media (min-width:900px){
+    .sec-nav-inner{height:52px}
+    .sec-nav ul{gap:34px;font-size:13.5px;overflow:visible}
+    .sec-nav-right{display:flex}
+  }
+
+  /* ───────── Kicker ───────── */
+  .kicker{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--brass-deep);margin-bottom:14px;line-height:1
+  }
+  .kicker::before{content:"";width:18px;height:1px;background:var(--brass);display:inline-block;flex-shrink:0}
+  .kicker--claret{color:var(--claret)}
+  .kicker--ink{color:var(--ink)}
+  @media (min-width:900px){
+    .kicker{font-size:10.5px;letter-spacing:.28em;margin-bottom:18px}
+    .kicker::before{width:22px}
+  }
+
+  /* ───────── Hero ───────── */
+  .hero{padding:32px 0 28px}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:start}
+  .hero-main h1{margin-bottom:20px;max-width:100%}
+  .hero-main h1 em{font-style:italic;color:var(--claret);font-weight:500}
+  .hero-lede{
+    font-family:"Cormorant Garamond",serif;font-size:18px;line-height:1.5;
+    color:var(--ink-soft);max-width:100%;margin-bottom:22px;
+    font-style:italic;font-weight:400;text-wrap:pretty
+  }
+  .hero-lede::first-letter{
+    float:left;font-family:"Playfair Display",serif;font-size:64px;line-height:.8;
+    font-weight:600;padding:8px 10px 0 0;color:var(--claret);font-style:normal
+  }
+  .hero-meta{
+    display:flex;gap:10px 14px;align-items:center;padding-top:18px;
+    border-top:1px solid var(--rule-hair);font:400 11.5px/1.3 "Inter";color:var(--ink-mute);
+    flex-wrap:wrap
+  }
+  .byline{color:var(--ink);font-weight:500;letter-spacing:.02em}
+  .byline::before{content:"Por ";color:var(--ink-mute);font-weight:400;font-style:italic;font-family:"Cormorant Garamond",serif;font-size:12.5px;margin-right:2px}
+  .dot-sep::before{content:"·";margin:0 4px;color:var(--brass);font-weight:700}
+  .exclusive{display:inline-flex;align-items:center;gap:5px;color:var(--brass-deep);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:9.5px}
+  .exclusive::before{content:"◆";color:var(--brass)}
+  @media (min-width:900px){
+    .hero{padding:54px 0 52px}
+    .hero-grid{grid-template-columns:1.15fr .85fr;gap:64px}
+    .hero-main h1{margin-bottom:28px;max-width:20ch}
+    .hero-lede{font-size:22px;max-width:52ch;margin-bottom:30px}
+    .hero-lede::first-letter{font-size:82px;padding:10px 12px 0 0}
+    .hero-meta{padding-top:22px;gap:18px;font-size:12.5px}
+    .exclusive{gap:6px;font-size:10px}
+  }
+
+  /* Hero art */
+  .hero-art{
+    aspect-ratio:4/5;position:relative;overflow:hidden;background:#0d0b08;color:#f4efe6;
+    padding:22px;display:flex;flex-direction:column;gap:14px;
+    border:1px solid var(--brass-deep);
+    box-shadow:0 1px 0 var(--paper) inset, 0 30px 60px -30px rgba(20,16,8,.4)
+  }
+  .hero-art::after{content:"";position:absolute;inset:10px;border:1px solid rgba(183,149,83,.18);pointer-events:none}
+  .hero-art .tag{
+    align-self:flex-start;font-family:"Inter",sans-serif;font-weight:500;
+    font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-light);
+    border-top:1px solid var(--brass);border-bottom:1px solid var(--brass);
+    padding:6px 12px 6px 0;display:inline-flex;align-items:center;gap:10px
+  }
+  .hero-art .tag::before{content:"◆";color:var(--brass)}
+  .hero-art .sub{font-family:"Inter",sans-serif;font-weight:500;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:#9a8d6f}
+  .hero-art .big{
+    font-family:"Playfair Display",serif;font-style:italic;font-weight:500;
+    font-size:clamp(58px, 16vw, 84px);line-height:1;letter-spacing:-.03em;
+    color:#fbf8f0;margin-top:-4px
+  }
+  .hero-art .big sup{font-size:.4em;font-weight:500;color:var(--brass-light);margin-left:4px}
+  .hero-art .delta{font-family:"JetBrains Mono",monospace;font-size:11px;color:#9a8d6f;letter-spacing:.04em;font-weight:400}
+  .hero-art .delta b{color:var(--brass-light);font-weight:500}
+  .hero-art .chart{flex:1;position:relative;margin-top:4px;min-height:90px}
+  .hero-art .chart svg{width:100%;height:100%;display:block}
+  .hero-art figcaption{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:12.5px;
+    line-height:1.4;color:rgba(244,239,230,.65);padding-top:12px;
+    border-top:1px solid rgba(183,149,83,.2)
+  }
+  .hero-art figcaption b{color:#f4efe6;font-weight:500;font-style:normal;font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+  @media (min-width:900px){
+    .hero-art{padding:32px;gap:18px}
+    .hero-art::after{inset:12px}
+    .hero-art .tag{font-size:9.5px;letter-spacing:.3em}
+    .hero-art .sub{font-size:10px;letter-spacing:.26em}
+    .hero-art .delta{font-size:12px}
+    .hero-art figcaption{font-size:13.5px;padding-top:14px}
+    .hero-art figcaption b{font-size:11px}
+  }
+
+  /* ───────── Data strip ───────── */
+  .data-block{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin:10px 0 0;
+    background:var(--card);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+    position:relative
+  }
+  .data-block::before,.data-block::after{content:"";position:absolute;left:0;right:0;height:1px;background:var(--brass)}
+  .data-block::before{top:-6px}
+  .data-block::after{bottom:-6px}
+  .data-cell{
+    padding:18px 16px;border-right:1px solid var(--rule-soft);
+    border-bottom:1px solid var(--rule-soft);position:relative
+  }
+  .data-cell:nth-child(2n){border-right:none}
+  .data-cell:nth-last-child(-n+2){border-bottom:none}
+  /* odd total (5) → last cell spans full row */
+  .data-cell:last-child:nth-child(odd){grid-column:1/-1;border-right:none}
+  .data-cell .l{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:9px;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute);
+    margin-bottom:10px;min-height:22px;line-height:1.3
+  }
+  .data-cell .v{
+    font-family:"Playfair Display",serif;font-size:28px;font-weight:500;letter-spacing:-.02em;
+    line-height:1;margin-bottom:8px;font-style:italic;color:var(--ink)
+  }
+  .data-cell .delta{
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:400;
+    display:inline-flex;gap:5px;align-items:center;letter-spacing:.02em
+  }
+  .delta.up{color:var(--up)}
+  .delta.dn{color:var(--down)}
+  .delta.flat{color:var(--ink-mute)}
+  @media (min-width:600px){
+    .data-block{grid-template-columns:repeat(3,1fr)}
+    .data-cell:nth-child(2n){border-right:1px solid var(--rule-soft)}
+    .data-cell:nth-child(3n){border-right:none}
+    .data-cell:nth-last-child(-n+2){border-bottom:1px solid var(--rule-soft)}
+    .data-cell:nth-last-child(-n+2):nth-child(n+4){border-bottom:none}
+    .data-cell:last-child:nth-child(odd){grid-column:auto}
+    .data-cell:nth-child(3n+2):last-child{grid-column:span 2}
+  }
+  @media (min-width:1100px){
+    .data-block{grid-template-columns:repeat(5,1fr)}
+    .data-cell{padding:28px 26px;border-bottom:none;border-right:1px solid var(--rule-soft) !important}
+    .data-cell:last-child{border-right:none !important;grid-column:auto}
+    .data-cell .l{font-size:9.5px;letter-spacing:.24em;margin-bottom:14px}
+    .data-cell .v{font-size:38px;margin-bottom:10px}
+    .data-cell .delta{font-size:11px;letter-spacing:.04em}
+  }
+
+  /* ───────── Manifesto ───────── */
+  .manifesto{padding:32px 0 16px;text-align:center}
+  .manifesto .line{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;
+    font-size:17px;color:var(--ink-soft);max-width:56ch;margin:0 auto;
+    line-height:1.45;text-wrap:balance
+  }
+  .manifesto .line .drop{font-family:"Playfair Display",serif;font-weight:500;color:var(--claret);font-size:1.1em}
+  .manifesto .src{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:9.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--brass-deep);margin-top:14px;
+    display:inline-flex;align-items:center;gap:10px
+  }
+  .manifesto .src::before,.manifesto .src::after{content:"";width:16px;height:1px;background:var(--brass-light)}
+  @media (min-width:900px){
+    .manifesto{padding:40px 0 20px}
+    .manifesto .line{font-size:22px}
+    .manifesto .src{font-size:10px;letter-spacing:.28em}
+  }
+
+  /* ───────── Section strip ───────── */
+  .sec-strip{
+    padding:22px 0 16px;margin:40px 0 24px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:14px;flex-wrap:wrap;border-top:1px solid var(--ink);position:relative
+  }
+  .sec-strip::before{content:"";position:absolute;top:-5px;left:0;right:0;height:1px;background:var(--brass)}
+  .sec-strip h2{
+    font-family:"Playfair Display",serif;font-size:26px;font-style:italic;
+    font-weight:500;letter-spacing:-.018em
+  }
+  .sec-strip h2 .ast{color:var(--brass);font-style:italic;font-weight:400;margin:0 2px}
+  .sec-strip .meta{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--ink-mute);font-weight:400}
+  @media (min-width:900px){
+    .sec-strip{padding:28px 0 20px;margin:72px 0 36px}
+    .sec-strip h2{font-size:36px}
+    .sec-strip .meta{font-size:14px}
+  }
+
+  /* ───────── Main + sidebar ───────── */
+  .main-layout{
+    display:grid;grid-template-columns:1fr;gap:40px;padding-bottom:40px
+  }
+  .sidebar{display:flex;flex-direction:column;gap:24px}
+  @media (min-width:1100px){
+    .main-layout{grid-template-columns:1fr 300px;gap:64px;padding-bottom:56px}
+    .sidebar{gap:32px}
+  }
+
+  /* ───────── News grid ───────── */
+  .grid-news{
+    display:grid;grid-template-columns:1fr;gap:36px 0
+  }
+  @media (min-width:600px){
+    .grid-news{grid-template-columns:repeat(2,1fr);gap:36px 28px}
+  }
+  @media (min-width:900px){
+    .grid-news{grid-template-columns:repeat(3,1fr);gap:42px 36px}
+  }
+
+  .article{display:flex;flex-direction:column;position:relative;min-width:0}
+  .article .art-img{
+    aspect-ratio:3/2;margin-bottom:14px;position:relative;overflow:hidden;
+    background:var(--paper-2);border:1px solid var(--rule-soft)
+  }
+  .article h3{margin-bottom:10px;font-size:20px;line-height:1.25}
+  .article h3 a:hover{color:var(--claret)}
+  .article .excerpt{
+    color:var(--ink-soft);font-family:"Cormorant Garamond",serif;
+    font-size:15.5px;line-height:1.5;font-style:italic;margin-bottom:14px;font-weight:400
+  }
+  .article .foot{
+    margin-top:auto;padding-top:12px;border-top:1px solid var(--rule-hair);
+    font-family:"Inter",sans-serif;font-weight:400;font-size:11px;color:var(--ink-mute);
+    display:flex;justify-content:space-between;align-items:center;gap:8px;letter-spacing:.02em
+  }
+  .article .foot b{color:var(--ink-soft);font-weight:500}
+  @media (min-width:900px){
+    .article h3{font-size:23px}
+    .article .excerpt{font-size:16.5px;margin-bottom:16px}
+    .article .foot{font-size:11.5px;padding-top:14px}
+  }
+
+  .art-img::before{content:"";position:absolute;inset:0}
+  .art-img .lbl{
+    position:absolute;top:12px;left:12px;background:transparent;color:#fbf8f0;
+    padding:4px 9px;font:500 9px/1 "Inter";letter-spacing:.2em;
+    text-transform:uppercase;z-index:2;border:1px solid rgba(251,248,240,.7);
+    backdrop-filter:blur(4px)
+  }
+  .art-img .credit{
+    position:absolute;bottom:8px;right:10px;font-family:"JetBrains Mono",monospace;
+    font-size:9px;color:rgba(251,248,240,.75);letter-spacing:.06em;text-transform:uppercase;
+    z-index:2;font-weight:400
+  }
+  .art-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%);z-index:1;pointer-events:none}
+  @media (min-width:900px){
+    .art-img .lbl{top:14px;left:14px;padding:5px 10px;font-size:9.5px;letter-spacing:.22em}
+    .art-img .credit{bottom:10px;right:12px;letter-spacing:.08em}
+  }
+
+  /* image backgrounds */
+  .bg-oil::before{background:linear-gradient(135deg, oklch(0.32 0.06 40) 0%, oklch(0.14 0.03 30) 100%)}
+  .bg-oil::after{background:radial-gradient(ellipse at 70% 30%, oklch(0.68 0.14 60 / 0.35), transparent 50%),linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%)}
+  .bg-factory::before{background:linear-gradient(160deg, oklch(0.36 0.05 240) 0%, oklch(0.16 0.03 250) 100%)}
+  .bg-factory::after{background:radial-gradient(ellipse at 30% 40%, oklch(0.62 0.10 240 / 0.3), transparent 55%),linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%)}
+  .bg-housing::before{background:linear-gradient(160deg, oklch(0.48 0.08 70) 0%, oklch(0.22 0.05 60) 100%)}
+  .bg-housing::after{background:radial-gradient(ellipse at 40% 60%, oklch(0.72 0.10 75 / 0.35), transparent 55%),linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%)}
+  .bg-ai::before{background:linear-gradient(180deg, oklch(0.24 0.05 280) 0%, oklch(0.12 0.03 270) 100%)}
+  .bg-ai::after{background:radial-gradient(ellipse at 70% 30%, oklch(0.54 0.12 290 / 0.3), transparent 55%),linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%)}
+  .bg-trade::before{background:linear-gradient(170deg, oklch(0.34 0.10 22) 0%, oklch(0.16 0.06 20) 100%)}
+  .bg-trade::after{background:radial-gradient(ellipse at 30% 70%, oklch(0.54 0.14 20 / 0.35), transparent 55%),linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%)}
+  .bg-euro::before{background:linear-gradient(160deg, oklch(0.36 0.10 245) 0%, oklch(0.18 0.06 250) 100%)}
+  .bg-euro::after{background:radial-gradient(ellipse at 60% 40%, oklch(0.58 0.12 245 / 0.35), transparent 55%),linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%)}
+
+  /* Featured wide */
+  .featured-wide{
+    grid-column:1 / -1;display:grid;grid-template-columns:1fr;gap:22px;
+    background:var(--card);border:1px solid var(--rule);padding:22px;align-items:start;
+    position:relative
+  }
+  .featured-wide::before{
+    content:"";position:absolute;top:-1px;left:-1px;right:-1px;height:3px;
+    background:linear-gradient(90deg, var(--brass-deep), var(--brass), var(--brass-light), var(--brass), var(--brass-deep))
+  }
+  .featured-wide .art-img{aspect-ratio:16/10;margin:0;border-color:var(--rule)}
+  .featured-wide h3{font-size:22px;line-height:1.15;margin-bottom:12px;font-weight:600}
+  .featured-wide .excerpt{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:16px;
+    color:var(--ink-soft);line-height:1.5;font-weight:400
+  }
+  @media (min-width:700px){
+    .featured-wide{grid-template-columns:1.1fr 1fr;gap:32px;padding:28px;align-items:center}
+    .featured-wide .art-img{aspect-ratio:5/4}
+    .featured-wide h3{font-size:clamp(22px, 1.6vw + 18px, 32px);line-height:1.1;margin-bottom:16px}
+    .featured-wide .excerpt{font-size:19px}
+  }
+  @media (min-width:900px){
+    .featured-wide{gap:44px;padding:38px}
+  }
+
+  /* ───────── Opinion ───────── */
+  .opinion{
+    background:var(--card);border:1px solid var(--rule);padding:24px;
+    margin:0 0 40px;display:grid;grid-template-columns:1fr;gap:28px;position:relative
+  }
+  .opinion::before{
+    content:"";position:absolute;top:-1px;left:-1px;right:-1px;height:3px;
+    background:linear-gradient(90deg, var(--brass-deep), var(--brass), var(--brass-light), var(--brass), var(--brass-deep))
+  }
+  .op-card{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+  .op-card + .op-card{padding-top:28px;border-top:1px solid var(--rule-soft)}
+  .op-photo{
+    width:64px;height:64px;border-radius:50%;flex-shrink:0;position:relative;
+    overflow:hidden;border:1px solid var(--brass);
+    box-shadow:0 0 0 3px var(--card), 0 0 0 4px var(--brass-light)
+  }
+  .op-photo.a{background:radial-gradient(circle at 35% 30%,oklch(0.72 0.08 40),oklch(0.30 0.08 22))}
+  .op-photo.b{background:radial-gradient(circle at 35% 30%,oklch(0.68 0.08 240),oklch(0.24 0.10 260))}
+  .op-photo.c{background:radial-gradient(circle at 35% 30%,oklch(0.72 0.09 140),oklch(0.32 0.08 150))}
+  .op-author{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:17px;color:var(--ink);letter-spacing:-.005em}
+  .op-role{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--ink-mute);margin-top:-10px;font-weight:400}
+  .op-card h4{font-family:"Playfair Display",serif;font-size:18px;line-height:1.26;font-style:italic;font-weight:500;margin-top:2px;text-wrap:balance}
+  .op-card h4 em{color:var(--claret);font-weight:500}
+  .op-card h4 a:hover{color:var(--claret)}
+  .op-excerpt{font-family:"Cormorant Garamond",serif;font-size:15px;color:var(--ink-soft);line-height:1.5;font-style:italic;font-weight:400}
+  .op-card .readmore{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--brass-deep);border-bottom:1px solid var(--brass);
+    padding-bottom:3px;margin-top:auto
+  }
+  @media (min-width:700px){
+    .opinion{grid-template-columns:repeat(2,1fr);gap:32px;padding:32px}
+    .op-card + .op-card{padding-top:0;border-top:none}
+    .op-card:nth-child(n+3){padding-top:28px;border-top:1px solid var(--rule-soft)}
+  }
+  @media (min-width:1100px){
+    .opinion{grid-template-columns:repeat(3,1fr);gap:40px;padding:44px;margin:0 0 56px}
+    .op-card{gap:16px}
+    .op-card:nth-child(n+3){padding-top:0;border-top:none}
+    .op-photo{width:72px;height:72px}
+    .op-author{font-size:18px}
+    .op-role{font-size:13.5px;margin-top:-12px}
+    .op-card h4{font-size:19px;margin-top:4px}
+    .op-excerpt{font-size:15.5px}
+    .op-card .readmore{font-size:10.5px;letter-spacing:.2em}
+  }
+
+  /* ───────── Sidebar ───────── */
+  .iab-box{background:transparent;border:1px solid var(--rule);padding:16px}
+  .iab-box .iab-label{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:9px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;
+    display:flex;justify-content:space-between;align-items:center;gap:8px
+  }
+  .iab-box .iab-label span:first-child::before{content:"§";color:var(--brass);margin-right:6px;font-family:"Playfair Display",serif;font-style:italic}
+  .iab-box .iab-label span:last-child{color:var(--ink-mute);font-weight:400;font-family:"JetBrains Mono",monospace}
+  .iab-slot{
+    background:var(--paper-2);aspect-ratio:300/250;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;color:var(--ink-mute);
+    font-family:"Inter",sans-serif;font-size:12px;text-align:center;gap:8px;
+    border:1px dashed var(--rule-hair)
+  }
+  .iab-slot.half{aspect-ratio:300/600}
+  .iab-slot strong{font-weight:500;color:var(--ink-soft);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .iab-slot .dim{font-size:10.5px;color:var(--ink-mute);font-family:"JetBrains Mono",monospace;letter-spacing:.08em}
+
+  /* Pro promo */
+  .pro-promo{
+    aspect-ratio:300/320;padding:20px;
+    background:linear-gradient(135deg, #15120d 0%, #211b0f 60%, #2d2410 100%);
+    color:#f4efe6;border:1px solid var(--brass-deep);position:relative;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between
+  }
+  .pro-promo::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 20% 10%, rgba(183,149,83,.2), transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(183,149,83,.12), transparent 45%);
+    pointer-events:none
+  }
+  .pro-promo::after{content:"";position:absolute;inset:8px;border:1px solid rgba(183,149,83,.25);pointer-events:none}
+  .pro-promo .top{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+  .pro-promo .pro-kick{font-family:"Inter",sans-serif;font-weight:500;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-light);display:inline-flex;align-items:center;gap:8px}
+  .pro-promo .pro-kick::before{content:"◆";color:var(--brass)}
+  .pro-promo h4{font-family:"Playfair Display",serif;font-size:20px;font-weight:500;color:#fbf8f0;line-height:1.18;font-style:italic}
+  .pro-promo .cta{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--brass-light);
+    display:inline-flex;gap:8px;align-items:center;padding-top:12px;
+    border-top:1px solid rgba(183,149,83,.3);position:relative;z-index:1
+  }
+  .pro-promo .cta svg{transition:transform .25s;flex-shrink:0}
+  .pro-promo:hover .cta svg{transform:translateX(3px)}
+  @media (min-width:900px){
+    .pro-promo{padding:24px}
+    .pro-promo .pro-kick{font-size:9.5px;letter-spacing:.3em}
+    .pro-promo h4{font-size:22px}
+    .pro-promo .cta{font-size:10.5px;letter-spacing:.22em}
+  }
+
+  /* Most read */
+  .most-read > h4{
+    font-family:"Playfair Display",serif;font-size:20px;font-weight:500;font-style:italic;
+    margin:0 0 4px;color:var(--ink);display:flex;align-items:baseline;justify-content:space-between
+  }
+  .most-read .mr-sub{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;
+    color:var(--ink-mute);margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--brass-light)
+  }
+  .most-read ol{padding:0;margin:0;list-style:none;counter-reset:mr}
+  .most-read li{
+    counter-increment:mr;display:grid;grid-template-columns:40px 1fr;gap:12px;
+    padding:14px 0;border-bottom:1px solid var(--rule-soft);align-items:start
+  }
+  .most-read li:last-child{border:none;padding-bottom:0}
+  .most-read li::before{
+    content:counter(mr,decimal-leading-zero);font-family:"Playfair Display",serif;
+    font-size:28px;font-weight:500;font-style:italic;color:var(--brass);line-height:1;padding-top:0
+  }
+  .most-read li a{font-family:"Playfair Display",serif;font-weight:500;font-size:14.5px;line-height:1.35;color:var(--ink);display:block;margin-bottom:6px;text-wrap:balance}
+  .most-read li a:hover{color:var(--claret)}
+  .most-read li .cat{font:500 9px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:var(--brass-deep)}
+  @media (min-width:900px){
+    .most-read > h4{font-size:22px}
+    .most-read li{grid-template-columns:44px 1fr;padding:16px 0}
+    .most-read li::before{font-size:30px}
+    .most-read li .cat{font-size:9.5px;letter-spacing:.22em}
+  }
+
+  /* Briefing */
+  .briefing{
+    background:linear-gradient(180deg, #15120d 0%, #1d170f 100%);
+    color:#f4efe6;padding:22px;position:relative;border:1px solid var(--brass-deep)
+  }
+  .briefing::after{content:"";position:absolute;inset:8px;border:1px solid rgba(183,149,83,.18);pointer-events:none}
+  .briefing h5{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:22px;color:#fbf8f0;margin:0 0 6px;letter-spacing:-.01em}
+  .briefing .sub{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:9px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--brass-light);margin-bottom:18px;
+    padding-bottom:12px;border-bottom:1px solid rgba(183,149,83,.3)
+  }
+  .briefing ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+  .briefing li{
+    display:grid;grid-template-columns:56px 1fr;gap:12px;
+    font-family:"Inter",sans-serif;font-size:12px;line-height:1.5;
+    border-bottom:1px solid rgba(183,149,83,.12);padding-bottom:14px;font-weight:400
+  }
+  .briefing li:last-child{border:none;padding-bottom:0}
+  .briefing li .t{font-family:"JetBrains Mono",monospace;font-size:10px;color:#9a8d6f;font-weight:400;letter-spacing:.08em;padding-top:3px}
+  .briefing li .t b{display:block;color:var(--brass-light);font-weight:500;font-size:15px;font-family:"Playfair Display",serif;font-style:italic;margin-bottom:2px;letter-spacing:-.01em}
+  .briefing li .n{color:#c9bda1}
+  .briefing li .n b{color:#fbf8f0;font-weight:500}
+  @media (min-width:900px){
+    .briefing{padding:30px}
+    .briefing h5{font-size:24px}
+    .briefing .sub{font-size:9.5px;letter-spacing:.3em;margin-bottom:20px;padding-bottom:14px}
+    .briefing li{grid-template-columns:60px 1fr;gap:14px;font-size:12.5px;padding-bottom:16px}
+    .briefing li .t b{font-size:16px}
+  }
+
+  /* ───────── Footer ───────── */
+  footer{
+    background:#0d0b08;color:#c9bda1;padding:48px 0 24px;margin-top:40px;
+    position:relative;border-top:1px solid var(--brass-deep)
+  }
+  footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--brass-light),transparent)}
+  .foot-grid{
+    display:grid;grid-template-columns:1fr;gap:32px;padding-bottom:32px;
+    border-bottom:1px solid rgba(183,149,83,.2)
+  }
+  .foot-brand .wordmark-foot{
+    font-family:"Playfair Display",serif;font-weight:500;font-style:italic;
+    color:#fbf8f0;font-size:56px;line-height:.88;letter-spacing:-.035em
+  }
+  .foot-brand .wordmark-foot .the{
+    display:flex;align-items:center;gap:10px;font-family:"Cormorant Garamond",serif;
+    font-style:italic;font-weight:400;font-size:11px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--brass-light);margin-bottom:2px
+  }
+  .foot-brand .wordmark-foot .the::after{content:"";flex:0 0 24px;height:1px;background:var(--brass-light)}
+  .foot-brand p{
+    font-family:"Cormorant Garamond",serif;font-style:italic;color:#9a8d6f;
+    font-size:15px;max-width:38ch;margin:14px 0 20px;line-height:1.55;font-weight:400
+  }
+  .foot-social{display:flex;gap:10px}
+  .foot-social a{width:36px;height:36px;border:1px solid rgba(183,149,83,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .25s}
+  .foot-social a:hover{background:var(--brass-deep);border-color:var(--brass-deep);color:#fbf8f0}
+  .foot-social svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+  .foot-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 20px}
+  .foot-col h5{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--brass-light);margin:0 0 14px;
+    padding-bottom:10px;border-bottom:1px solid rgba(183,149,83,.2)
+  }
+  .foot-col ul{padding:0;margin:0;list-style:none}
+  .foot-col li{margin-bottom:10px}
+  .foot-col a{color:#9a8d6f;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:14px;transition:color .25s}
+  .foot-col a:hover{color:var(--brass-light)}
+
+  .foot-legal{
+    display:flex;justify-content:space-between;align-items:center;padding-top:22px;
+    font-family:"JetBrains Mono",monospace;font-size:10px;color:#6b5f47;
+    flex-wrap:wrap;gap:14px;letter-spacing:.04em
+  }
+  .foot-legal .links{display:flex;gap:16px;flex-wrap:wrap}
+  .foot-legal a:hover{color:var(--brass-light)}
+  .foot-crest{display:flex;align-items:center;gap:12px;color:var(--brass);font-family:"Playfair Display",serif;font-style:italic;font-size:11px;letter-spacing:.08em}
+  .foot-crest svg{width:22px;height:22px;flex-shrink:0}
+
+  @media (min-width:600px){
+    .foot-cols{grid-template-columns:repeat(4,1fr)}
+  }
+  @media (min-width:1100px){
+    footer{padding:72px 0 32px;margin-top:64px}
+    .foot-grid{grid-template-columns:2fr 4fr;gap:44px;padding-bottom:44px}
+    .foot-brand .wordmark-foot{font-size:72px}
+    .foot-brand p{font-size:16px;margin:16px 0 22px}
+    .foot-social a{width:38px;height:38px}
+    .foot-social svg{width:15px;height:15px}
+    .foot-col h5{font-size:10px;letter-spacing:.3em;margin:0 0 20px}
+    .foot-col li{margin-bottom:12px}
+    .foot-col a{font-size:14.5px}
+    .foot-legal{padding-top:28px;font-size:10.5px;letter-spacing:.06em}
+    .foot-legal .links{gap:24px}
+    .foot-crest{font-size:12px;letter-spacing:.1em}
+    .foot-crest svg{width:24px;height:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Pre bar -->
+<div class="pre">
+  <div class="wrap">
+    <div class="pre-inner">
+      <span class="crest">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2c3 2.5 3 13 0 16M10 2c-3 2.5-3 13 0 16"/></svg>
+        La Divisa · desde 1887
+      </span>
+      <span class="hide-sm">Vie · 24 abr 2026 · Edición Nº 3 182</span>
+      <span>€ 3,50 · Digital incl.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Markets ticker -->
+<div class="ticker" aria-label="Indicadores de mercado en vivo">
+  <div class="tag">Mercados</div>
+  <div class="track-wrap">
+  <div class="track">
+    <span class="it"><span class="lbl">IBEX 35</span><b>13.284,6</b><span class="dn">▼ 0,67%</span></span>
+    <span class="it"><span class="lbl">EURO STOXX 50</span><b>5.412,8</b><span class="dn">▼ 0,34%</span></span>
+    <span class="it"><span class="lbl">DAX</span><b>20.918,3</b><span class="dn">▼ 0,21%</span></span>
+    <span class="it"><span class="lbl">FTSE 100</span><b>8.426,1</b><span class="up">▲ 0,14%</span></span>
+    <span class="it"><span class="lbl">S&amp;P 500</span><b>6.182,7</b><span class="up">▲ 0,18%</span></span>
+    <span class="it"><span class="lbl">EUR / USD</span><b>1,1512</b><span class="up">▲ 0,22%</span></span>
+    <span class="it"><span class="lbl">Brent</span><b>$94,8</b><span class="up">▲ 1,32%</span></span>
+    <span class="it"><span class="lbl">TTF gas</span><b>€41,2</b><span class="up">▲ 0,80%</span></span>
+    <span class="it"><span class="lbl">Bund 10Y</span><b>3,04%</b><span class="up">▲ 3 pb</span></span>
+    <span class="it"><span class="lbl">Bono ES 10Y</span><b>3,51%</b><span class="up">▲ 2 pb</span></span>
+    <span class="it"><span class="lbl">Euríbor 12m</span><b>3,42%</b><span class="dn">▼ 1 pb</span></span>
+    <span class="it"><span class="lbl">Oro</span><b>$2.812</b><span class="up">▲ 0,41%</span></span>
+    <span class="it"><span class="lbl">BTC</span><b>$77.420</b><span class="up">▲ 1,86%</span></span>
+    <!-- duplicate -->
+    <span class="it"><span class="lbl">IBEX 35</span><b>13.284,6</b><span class="dn">▼ 0,67%</span></span>
+    <span class="it"><span class="lbl">EURO STOXX 50</span><b>5.412,8</b><span class="dn">▼ 0,34%</span></span>
+    <span class="it"><span class="lbl">S&amp;P 500</span><b>6.182,7</b><span class="up">▲ 0,18%</span></span>
+    <span class="it"><span class="lbl">EUR / USD</span><b>1,1512</b><span class="up">▲ 0,22%</span></span>
+    <span class="it"><span class="lbl">Brent</span><b>$94,8</b><span class="up">▲ 1,32%</span></span>
+    <span class="it"><span class="lbl">Bund 10Y</span><b>3,04%</b><span class="up">▲ 3 pb</span></span>
+  </div>
+  </div>
+</div>
+
+<!-- Masthead -->
+<header class="masthead">
+  <div class="wrap">
+
+    <!-- MOBILE masthead -->
+    <div class="mast-mobile">
+      <div class="mast-mobile-top">
+        <div class="mast-mobile-date">
+          Vie · 24 abr 2026<br>
+          MMXXVI · Año CXXXIX
+        </div>
+        <button class="mast-mobile-menu" aria-label="Abrir menú">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+        </button>
+      </div>
+
+      <div class="wordmark-mobile">
+        <span class="the">— La —</span>
+        Divisa
+        <span class="founded">Madrid · MDCCCLXXXVII</span>
+      </div>
+
+      <div class="mast-mobile-today">
+        <div>
+          <span class="k">Lo que marca el día</span>
+          <div class="body">El Brent rebasa los 94 $; Fráncfort aplaza a junio.</div>
+        </div>
+        <div>
+          <span class="k">En un número</span>
+          <span class="num">2,6 %</span>
+          <div class="body">HICP eurozona · marzo.</div>
+        </div>
+      </div>
+
+      <div class="mast-mobile-actions">
+        <button class="mast-btn">Entrar</button>
+        <button class="mast-btn mast-btn--sub">Suscribirse</button>
+      </div>
+    </div>
+
+    <!-- DESKTOP masthead -->
+    <div class="mast-desktop">
+      <div class="mast-top">
+        <div class="mast-date">Viernes · 24 de abril · MMXXVI</div>
+        <div class="mast-logo-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10.5"/><circle cx="12" cy="12" r="7.5"/><path d="M12 3.5v17M3.5 12h17M5.5 5.5l13 13M18.5 5.5l-13 13" stroke-width=".6"/></svg>
+          <span>MMXXVI · Año CXXXIX</span>
+        </div>
+        <div class="mast-actions">
+          <button class="mast-btn">Iniciar sesión</button>
+          <button class="mast-btn mast-btn--sub">Suscribirse · Premium</button>
+        </div>
+      </div>
+      <div class="mast-main">
+        <div class="mast-side">
+          <span class="k">Lo que marca el día</span>
+          El Brent rebasa los 94 $ tras el último incidente en Ormuz; Fráncfort aplaza la decisión a junio y el consenso interno cambia de acera.
+        </div>
+        <div class="wordmark">
+          <span class="the">— La —</span>
+          Divisa
+          <span class="founded">Madrid · fundado en MDCCCLXXXVII</span>
+        </div>
+        <div class="mast-side r">
+          <span class="k">El día en un número</span>
+          <span class="num">2,6 %</span>
+          Inflación eurozona en marzo. Siete décimas más que en febrero; dos décimas sobre el mandato.
+        </div>
+      </div>
+    </div>
+
+    <div class="mast-rules" aria-hidden="true">
+      <hr class="r1">
+      <hr class="r2">
+      <hr class="r3">
+    </div>
+  </div>
+</header>
+
+<!-- Section nav -->
+<nav class="sec-nav">
+  <div class="wrap sec-nav-inner">
+    <ul>
+      <li class="active"><a href="#">Portada</a></li>
+      <li><a href="#">Macro</a></li>
+      <li><a href="#">Mercados</a></li>
+      <li><a href="#">Empresas</a></li>
+      <li><a href="#">Energía</a></li>
+      <li><a href="#">Vivienda</a></li>
+      <li><a href="#">Bruselas</a></li>
+      <li><a href="#">Opinión</a></li>
+      <li><a href="#">Semanal</a></li>
+    </ul>
+    <div class="sec-nav-right">
+      <span class="live">En vivo · 13:42 CET</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <span class="kicker">Política monetaria · Análisis exclusivo</span>
+        <h1>El BCE aplaza la decisión a junio: la <em>crisis de Ormuz</em> rompe el guion y deja a Lagarde con dos lecturas más y ninguna certeza.</h1>
+        <p class="hero-lede">Hace un mes los futuros descontaban al 78 % una subida de veinticinco puntos básicos. Hoy la probabilidad apenas llega al 10 %. El Consejo prefiere esperar a las proyecciones de junio antes de mover ficha — y el consenso interno, según tres fuentes, es que el riesgo mayor es repetir un «trichetazo», no quedarse corto.</p>
+        <div class="hero-meta">
+          <span class="byline">Inés Balbuena Arrieta</span>
+          <span class="dot-sep">Corresponsal · Fráncfort</span>
+          <span class="dot-sep">12 min lectura</span>
+          <span class="dot-sep exclusive">Exclusivo suscriptores</span>
+        </div>
+      </div>
+      <figure class="hero-art">
+        <span class="tag">Dossier · Fráncfort</span>
+        <div>
+          <div class="sub">Tipo depo · Banco Central Europeo</div>
+          <div class="big">2,00<sup>%</sup></div>
+          <div class="delta"><b>▬</b> sin cambio · sexta reunión consecutiva</div>
+        </div>
+        <div class="chart" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#b79553" stop-opacity=".25"/>
+                <stop offset="100%" stop-color="#b79553" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(183,149,83,.12)" stroke-width=".5">
+              <line x1="0" y1="36" x2="320" y2="36"/>
+              <line x1="0" y1="72" x2="320" y2="72"/>
+              <line x1="0" y1="108" x2="320" y2="108"/>
+              <line x1="0" y1="144" x2="320" y2="144"/>
+            </g>
+            <path d="M0 18 L30 24 L60 40 L90 60 L120 84 L150 108 L180 132 L210 138 L240 136 L270 134 L300 132 L320 130"
+                  fill="none" stroke="#fbf8f0" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M210 138 L240 130 L270 122 L300 118 L320 114"
+                  fill="none" stroke="#b79553" stroke-width="1.4" stroke-dasharray="3 3"/>
+            <path d="M210 138 L240 130 L270 122 L300 118 L320 114 L320 180 L210 180 Z" fill="url(#g1)"/>
+            <g font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(244,239,230,.5)" letter-spacing=".5">
+              <text x="0" y="174">JUL 24</text>
+              <text x="120" y="174">ENE 25</text>
+              <text x="210" y="174">HOY</text>
+              <text x="290" y="174">DIC 26</text>
+            </g>
+            <g font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(244,239,230,.5)">
+              <text x="296" y="22">4,0%</text>
+              <text x="296" y="58">3,0%</text>
+              <text x="296" y="94">2,5%</text>
+              <text x="296" y="130">2,0%</text>
+            </g>
+            <circle cx="210" cy="138" r="3.5" fill="#b79553"/>
+            <circle cx="210" cy="138" r="6" fill="none" stroke="#b79553" stroke-opacity=".4" stroke-width="1"/>
+            <text x="162" y="128" font-family="Inter,sans" font-size="8" fill="#b79553" font-weight="500" letter-spacing="1.2">PAUSA · 6ª</text>
+          </svg>
+        </div>
+        <figcaption><b>Tipo depo · BCE</b><br>Línea continua: efectivo. Discontinua: implícito OIS. Fuente: ECB / Bloomberg.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Data strip -->
+<div class="wrap">
+  <div class="data-block">
+    <div class="data-cell">
+      <div class="l">PIB España · 2026 prev.</div>
+      <div class="v">+2,1 %</div>
+      <div class="delta dn">▼ –0,8 pp vs 2025 · FMI</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">HICP eurozona · marzo</div>
+      <div class="v">2,6 %</div>
+      <div class="delta up">▲ +0,7 pp vs feb.</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Euríbor 12 m.</div>
+      <div class="v">3,42 %</div>
+      <div class="delta dn">▼ mín. desde oct. 2025</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Déficit comercial · feb.</div>
+      <div class="v">–3.296 M€</div>
+      <div class="delta up">▲ –24 % interanual</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Brent · referencia</div>
+      <div class="v">$94,8</div>
+      <div class="delta up">▲ +15 % desde Ormuz</div>
+    </div>
+  </div>
+</div>
+
+<!-- Manifesto -->
+<div class="wrap">
+  <div class="manifesto">
+    <p class="line">«Escribir economía <span class="drop">con la disciplina</span> de una mesa de operaciones y <span class="drop">el oído</span> de una redacción.»</p>
+    <span class="src">Código editorial · desde 1887</span>
+  </div>
+</div>
+
+<!-- Section strip -->
+<div class="wrap">
+  <div class="sec-strip">
+    <h2>La agenda del día <span class="ast">·</span> edición premium</h2>
+    <div class="meta">siete piezas · viernes</div>
+  </div>
+</div>
+
+<!-- Main + sidebar -->
+<div class="wrap main-layout">
+  <div>
+    <div class="grid-news">
+
+      <article class="article featured-wide">
+        <div class="art-img bg-oil">
+          <span class="lbl">Ormuz · Golfo Pérsico</span>
+          <span class="credit">Reuters · H. Darwish</span>
+        </div>
+        <div>
+          <span class="kicker kicker--claret">Energía · Exclusiva</span>
+          <h3><a href="#">Bruselas activa <em>Accelerate EU</em>: cupones sociales, rebaja del IVA a la luz y un «vigilante» del queroseno para evitar una crisis en la aviación.</a></h3>
+          <p class="excerpt">El paquete responde al encarecimiento del Brent tras los incidentes en Ormuz. El borrador filtrado fija incentivos al coche eléctrico y obliga a los Estados a un plan de racionamiento voluntario antes del 30 de junio. Tres capitales ya negocian excepciones.</p>
+          <div class="foot">
+            <span>Lucía Hernández <b>·</b> Bruselas</span>
+            <span>Hace 2 h · 14 min</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-ai">
+          <span class="lbl">Madrid · Tech</span>
+          <span class="credit">EFE · J. Ríos</span>
+        </div>
+        <span class="kicker">Empleo · Inteligencia artificial</span>
+        <h3><a href="#">Capgemini e Inetum plantean dos ERE que afectan al 7 % y al 5 % de su plantilla en España: la IA entra en la cuenta de resultados.</a></h3>
+        <p class="excerpt">Más de 12 000 empleos comprometidos entre enero y abril en compañías con sede en España, según datos sectoriales.</p>
+        <div class="foot">
+          <span>Aitor Caballero</span>
+          <span>Hace 4 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-factory">
+          <span class="lbl">Comercio exterior</span>
+          <span class="credit">Reuters · L. Gen</span>
+        </div>
+        <span class="kicker kicker--claret">Macro · Comercio</span>
+        <h3><a href="#">El déficit comercial mejora un 24 % en los dos primeros meses del año gracias al hundimiento del déficit energético.</a></h3>
+        <p class="excerpt">Las exportaciones alcanzan los 31 720 millones en febrero, un 9,7 % más mensual. El superávit con la UE sostiene: 4 021 millones.</p>
+        <div class="foot">
+          <span>Clara Mendoza</span>
+          <span>Hace 5 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-euro">
+          <span class="lbl">Madrid · Moncloa</span>
+          <span class="credit">Pool · D. Castro</span>
+        </div>
+        <span class="kicker">Fondos europeos · España</span>
+        <h3><a href="#">«España Crece» echa a andar: el Tesoro transferirá los primeros fondos en mayo y Bruselas cierra la estrategia en el segundo trimestre.</a></h3>
+        <p class="excerpt">Funcas calcula que los Next Generation explican entre el 10 % y el 14 % del crecimiento del PIB desde 2021.</p>
+        <div class="foot">
+          <span>Pablo Vilches</span>
+          <span>Hace 6 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-housing">
+          <span class="lbl">Vivienda · España</span>
+          <span class="credit">EFE · A. Torres</span>
+        </div>
+        <span class="kicker kicker--ink">Vivienda · Mercado</span>
+        <h3><a href="#">La compraventa de vivienda cae un 0,5 % en febrero: segundo mes en negativo tras el desplome de enero.</a></h3>
+        <p class="excerpt">Los visados de obra nueva siguen en máximos desde 2008 — y aun así, insuficientes para la demanda.</p>
+        <div class="foot">
+          <span>Irene Baquero</span>
+          <span>Hace 7 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-trade">
+          <span class="lbl">Málaga · AVE</span>
+          <span class="credit">EFE · D. Pérez</span>
+        </div>
+        <span class="kicker">Infraestructuras · Transporte</span>
+        <h3><a href="#">Renfe, Iryo y Ouigo restablecen desde el 30 de abril sus AVE directos con Málaga: los tres aceptan vía única.</a></h3>
+        <p class="excerpt">Un acuerdo técnico desbloquea meses de retrasos. El regulador firmará antes del verano.</p>
+        <div class="foot">
+          <span>S. Arenales</span>
+          <span>Hace 9 h</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Opinion strip -->
+    <div class="sec-strip" style="margin-top:40px">
+      <h2>Firmas <span class="ast">·</span> opinión</h2>
+      <div class="meta">tres voces · viernes</div>
+    </div>
+    <div class="opinion">
+      <div class="op-card">
+        <div class="op-photo a" aria-hidden="true"></div>
+        <div class="op-author">Rémi Garnier</div>
+        <div class="op-role">Ex-economista jefe · BCE</div>
+        <h4><a href="#">El error no sería subir tipos en junio. Sería haber construido un marco que aún confunde shock de oferta con <em>demanda sobrecalentada</em>.</a></h4>
+        <p class="op-excerpt">Fráncfort lleva dos años reescribiendo su función de reacción en tiempo real. Cada comunicado añade una variable. Esa opacidad la pagan los mercados y las familias endeudadas.</p>
+        <span class="readmore">Leer la columna</span>
+      </div>
+      <div class="op-card">
+        <div class="op-photo b" aria-hidden="true"></div>
+        <div class="op-author">Elsa Pombo</div>
+        <div class="op-role">Economista · CaixaBank Research</div>
+        <h4><a href="#">El <em>carry-over</em> del cuarto trimestre suma 0,2 puntos mecánicos a 2026. Eso no es crecimiento: es memoria estadística.</a></h4>
+        <p class="op-excerpt">El PIB español entrará en una desaceleración intensa. La inversión pública en defensa es el único contrafuego que queda. Conviene decirlo antes de la campaña.</p>
+        <span class="readmore">Leer la columna</span>
+      </div>
+      <div class="op-card">
+        <div class="op-photo c" aria-hidden="true"></div>
+        <div class="op-author">Darío Cantú</div>
+        <div class="op-role">Gestor · Federated Hermes</div>
+        <h4><a href="#">Con el 70 % del stock hipotecario a tipo variable, cada mes que el BCE <em>no se mueve</em> vale 45 € en la cuota media.</a></h4>
+        <p class="op-excerpt">La política monetaria europea se vuelve reactiva a la geopolítica — y Madrid es donde más cuesta cada reunión pospuesta.</p>
+        <span class="readmore">Leer la columna</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="briefing">
+      <h5>Briefing del día</h5>
+      <div class="sub">Cinco citas · viernes</div>
+      <ul>
+        <li>
+          <div class="t"><b>09:00</b>CET</div>
+          <div class="n"><b>INE · Índice de precios industriales.</b> El consenso espera +3,1 % interanual.</div>
+        </li>
+        <li>
+          <div class="t"><b>11:00</b>CET</div>
+          <div class="n"><b>Eurostat · confianza del consumidor.</b> Primera lectura tras el shock energético.</div>
+        </li>
+        <li>
+          <div class="t"><b>14:30</b>CET</div>
+          <div class="n"><b>BEA · PCE subyacente EE. UU.</b> Consenso +2,7 %.</div>
+        </li>
+        <li>
+          <div class="t"><b>18:00</b>CET</div>
+          <div class="n"><b>Consejo UE · Ayia Napa.</b> Medidas de ahorro energético tras la crisis en el Golfo.</div>
+        </li>
+        <li>
+          <div class="t"><b>22:00</b>CET</div>
+          <div class="n"><b>Baker Hughes · <em>rig count</em>.</b> Señal para el WTI del lunes.</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Publicidad</span><span>300×250</span></div>
+      <div class="iab-slot">
+        <strong>IAB Medium Rectangle</strong>
+        <span class="dim">300 × 250</span>
+      </div>
+    </div>
+
+    <div class="most-read">
+      <h4>Lo más leído</h4>
+      <div class="mr-sub">Selección · semana en curso</div>
+      <ol>
+        <li>
+          <a href="#">El BCE aplaza la decisión a junio: por qué el consenso interno teme más equivocarse subiendo.</a>
+          <span class="cat">Política monetaria</span>
+        </li>
+        <li>
+          <a href="#">Capgemini e Inetum: los ERE que marcan el precio real de la IA en España.</a>
+          <span class="cat">Empresas</span>
+        </li>
+        <li>
+          <a href="#">El déficit comercial cae un 24 %: los tres países que explican el superávit.</a>
+          <span class="cat">Macro</span>
+        </li>
+        <li>
+          <a href="#">Accelerate EU, punto por punto: cupones, IVA eléctrico y vigilante del queroseno.</a>
+          <span class="cat">Bruselas</span>
+        </li>
+        <li>
+          <a href="#">El FMI advierte: el viento de cola español empieza a amainar.</a>
+          <span class="cat">Macro</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="pro-promo">
+      <div class="top">
+        <span class="pro-kick">La Divisa · Premium</span>
+        <h4>El <em style="font-style:italic">briefing</em> que leen los que mueven el dinero antes de las nueve.</h4>
+      </div>
+      <span class="cta">Probar 30 días · 1 €
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </span>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Publicidad</span><span>300×600</span></div>
+      <div class="iab-slot half">
+        <strong>IAB Half Page</strong>
+        <span class="dim">300 × 600</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="wordmark-foot">
+          <span class="the">La</span>
+          Divisa
+        </div>
+        <p>Un diario de economía y mercados publicado en Madrid desde 1887. Escribimos con la disciplina de una mesa de operaciones y el oído de una redacción.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="RSS"><svg viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Secciones</h5>
+          <ul>
+            <li><a href="#">Macro</a></li>
+            <li><a href="#">Mercados</a></li>
+            <li><a href="#">Empresas</a></li>
+            <li><a href="#">Energía</a></li>
+            <li><a href="#">Vivienda</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Redacción</h5>
+          <ul>
+            <li><a href="#">Manifiesto</a></li>
+            <li><a href="#">Equipo</a></li>
+            <li><a href="#">Metodología</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Premium</h5>
+          <ul>
+            <li><a href="#">La Divisa Pro</a></li>
+            <li><a href="#">Briefings</a></li>
+            <li><a href="#">Semanal</a></li>
+            <li><a href="#">Regalar</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Transparencia</h5>
+          <ul>
+            <li><a href="#">Código editorial</a></li>
+            <li><a href="#">Propiedad</a></li>
+            <li><a href="#">Correcciones</a></li>
+            <li><a href="#">Quejas</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <div class="foot-crest">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10.5"/><circle cx="12" cy="12" r="7.5"/><path d="M12 3.5v17M3.5 12h17" stroke-width=".6"/></svg>
+        <span>Madrid · MDCCCLXXXVII</span>
+      </div>
+      <span>© La Divisa Ediciones S. L. · Nº 3 182</span>
+      <div class="links">
+        <a href="#">Aviso legal</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

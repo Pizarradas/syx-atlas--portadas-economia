@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>La Divisa · Diario de economía y mercados</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,700;1,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fafaf7;
+    --paper-2:#f1f0ea;
+    --card:#ffffff;
+    --ink:#101216;
+    --ink-soft:#33353d;
+    --ink-mute:#6b6e78;
+    --rule:#d4d3cc;
+    --rule-soft:#e6e5de;
+    --accent:oklch(0.42 0.205 260);        /* deep blue */
+    --accent-2:oklch(0.58 0.185 28);        /* burnt orange */
+    --ok:oklch(0.52 0.14 149);
+    --down:oklch(0.48 0.19 22);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.55}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4,h5{font-family:"Playfair Display",Georgia,serif;font-weight:800;letter-spacing:-.012em;margin:0;color:var(--ink)}
+  h1{font-size:clamp(2.4rem,1.4rem + 3.2vw,4.8rem);line-height:1;letter-spacing:-.025em}
+  h2{font-size:clamp(1.6rem,1.1rem + 1.6vw,2.6rem);line-height:1.08}
+  h3{font-size:22px;line-height:1.22}
+  h4{font-size:17px;line-height:1.28;font-weight:700}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+
+  /* Markets ticker */
+  .ticker{background:var(--ink);color:#fff;height:40px;display:flex;align-items:center;font:500 12px/1 "JetBrains Mono",monospace;overflow:hidden}
+  .ticker .tag{background:var(--accent);color:#fff;padding:0 14px;height:100%;display:flex;align-items:center;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:10px;flex-shrink:0;font-family:"Inter",sans-serif}
+  .ticker .track{display:flex;gap:36px;padding:0 20px;white-space:nowrap;animation:tscroll 80s linear infinite}
+  .ticker .it{display:inline-flex;gap:8px;align-items:baseline}
+  .ticker .it .lbl{color:#9ca0ac}
+  .ticker .it b{color:#fff;font-weight:600}
+  .ticker .up{color:oklch(0.72 0.14 149)}
+  .ticker .dn{color:oklch(0.72 0.15 22)}
+  @keyframes tscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* Masthead */
+  .masthead{background:var(--paper);padding:22px 0 12px;border-bottom:1px solid var(--rule)}
+  .mast-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-mute);margin-bottom:16px}
+  .mast-date{text-transform:uppercase;letter-spacing:.18em;font-weight:600;color:var(--ink-soft);font-family:"JetBrains Mono",monospace;font-size:10.5px}
+  .mast-weather{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);letter-spacing:.08em}
+  .mast-weather b{color:var(--ink-soft);font-weight:600}
+  .mast-actions{display:flex;gap:10px;align-items:center}
+  .mast-btn{border:1.5px solid var(--ink);padding:7px 14px;border-radius:2px;font:600 10.5px/1 "Inter";letter-spacing:.14em;text-transform:uppercase;cursor:pointer;background:transparent;color:var(--ink);transition:all .2s}
+  .mast-btn:hover{background:var(--ink);color:var(--paper)}
+  .mast-btn--sub{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .mast-btn--sub:hover{background:var(--accent-2);border-color:var(--accent-2)}
+  .mast-main{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:end;padding:4px 0 8px}
+  .mast-side{font-family:"Playfair Display",serif;font-style:italic;color:var(--ink-soft);font-size:14px;line-height:1.45;max-width:26ch;padding-bottom:10px}
+  .mast-side.r{text-align:right;margin-left:auto;justify-self:end}
+  .mast-side .k{display:block;font:700 9.5px/1 "Inter";letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-style:normal;margin-bottom:6px}
+  .wordmark{
+    font-family:"Playfair Display",serif;font-weight:900;font-size:clamp(54px,6.6vw,112px);
+    line-height:.9;letter-spacing:-.045em;color:var(--ink);text-align:center;
+  }
+  .wordmark .the{font-size:.28em;font-weight:700;font-style:italic;letter-spacing:.05em;display:block;color:var(--accent);margin-bottom:-.2em}
+
+  /* Section nav */
+  .sec-nav{border-top:3px double var(--ink);border-bottom:1px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:10}
+  .sec-nav-inner{display:flex;justify-content:space-between;align-items:center;height:48px;overflow-x:auto}
+  .sec-nav ul{display:flex;gap:26px;padding:0;margin:0;list-style:none;font:600 11.5px/1 "Inter";letter-spacing:.16em;text-transform:uppercase}
+  .sec-nav li a{color:var(--ink-soft);padding:4px 0;border-bottom:2px solid transparent;transition:all .2s;display:inline-block;white-space:nowrap}
+  .sec-nav li a:hover{color:var(--accent)}
+  .sec-nav li.active a{color:var(--ink);border-bottom-color:var(--accent)}
+  .sec-nav-right{display:flex;gap:16px;align-items:center;font:500 11px/1 "JetBrains Mono",monospace;color:var(--ink-mute);white-space:nowrap}
+  .sec-nav-right .live{display:inline-flex;align-items:center;gap:6px}
+  .sec-nav-right .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-2);display:inline-block;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.35}}
+
+  .kicker{display:inline-block;font:700 10.5px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .kicker--orange{color:var(--accent-2)}
+  .kicker--ink{color:var(--ink)}
+  .kicker--band{background:var(--ink);color:var(--paper);padding:6px 10px;letter-spacing:.16em;white-space:nowrap}
+  .kicker--accent-band{background:var(--accent);color:#fff;padding:6px 10px;letter-spacing:.16em;white-space:nowrap}
+
+  /* Hero */
+  .hero{padding:36px 0 36px;border-bottom:1px solid var(--rule)}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+  .hero-main h1{margin-bottom:20px;text-wrap:balance;max-width:22ch}
+  .hero-main h1 em{font-style:italic;color:var(--accent)}
+  .hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:54ch;margin-bottom:22px;font-family:"Playfair Display",serif;font-style:italic}
+  .hero-lede::first-letter{float:left;font-family:"Playfair Display",serif;font-size:74px;line-height:.82;font-weight:900;padding:8px 10px 0 0;color:var(--accent-2);font-style:normal}
+  .hero-meta{display:flex;gap:16px;align-items:center;padding-top:18px;border-top:1px solid var(--rule);font:500 12.5px/1 "Inter";color:var(--ink-mute);flex-wrap:wrap}
+  .byline{color:var(--ink);font-weight:600}
+  .byline::before{content:"Por ";color:var(--ink-mute);font-weight:400;font-style:italic;font-family:"Playfair Display",serif}
+  .dot-sep::before{content:"·";margin:0 4px;color:var(--ink-mute)}
+
+  /* Hero chart figure — rate path visualization */
+  .hero-art{aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:2px;background:var(--ink);color:#fff;padding:24px;display:flex;flex-direction:column;gap:14px}
+  .hero-art .tag{background:var(--accent-2);color:#fff;padding:6px 10px;font:700 10px/1 "Inter";letter-spacing:.16em;text-transform:uppercase;align-self:flex-start}
+  .hero-art .sub{font:700 10px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:#9ca0ac}
+  .hero-art .big{font-family:"Playfair Display",serif;font-style:italic;font-weight:900;font-size:66px;line-height:1;letter-spacing:-.02em;color:#fff;margin-top:-4px}
+  .hero-art .delta{font:600 12.5px/1 "JetBrains Mono",monospace;color:oklch(0.72 0.15 22)}
+  .hero-art .chart{flex:1;position:relative;margin-top:6px}
+  .hero-art .chart svg{width:100%;height:100%;display:block}
+  .hero-art figcaption{font:500 11.5px/1.4 "Inter";color:rgba(255,255,255,.72)}
+  .hero-art figcaption b{color:#fff;font-weight:600}
+
+  /* Data strip */
+  .data-block{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin:36px 0 0;background:var(--card)}
+  .data-cell{padding:22px 22px;border-right:1px solid var(--rule)}
+  .data-cell:last-child{border-right:none}
+  .data-cell .l{font:700 10px/1.1 "Inter";letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;height:22px}
+  .data-cell .v{font-family:"Playfair Display",serif;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1;margin-bottom:6px;font-style:italic;color:var(--ink)}
+  .data-cell .delta{font:600 11.5px/1 "JetBrains Mono",monospace;display:inline-flex;gap:4px;align-items:center}
+  .delta.up{color:var(--ok)}
+  .delta.dn{color:var(--down)}
+  .delta.flat{color:var(--ink-mute)}
+
+  /* Section strips */
+  .sec-strip{border-top:4px double var(--ink);border-bottom:1px solid var(--rule);padding:18px 0;margin:52px 0 28px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .sec-strip h2{font-size:32px;font-style:italic;font-weight:800;letter-spacing:-.018em}
+  .sec-strip h2 .ast{color:var(--accent);font-style:normal}
+  .sec-strip .meta{font:600 11px/1 "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--ink-mute)}
+
+  .main-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;padding-bottom:48px}
+  .sidebar{display:flex;flex-direction:column;gap:24px}
+
+  /* 3-col grid */
+  .grid-news{display:grid;grid-template-columns:repeat(3,1fr);gap:32px 28px}
+  .article{display:flex;flex-direction:column}
+  .article .art-img{aspect-ratio:3/2;margin-bottom:14px;position:relative;overflow:hidden;border-radius:2px;background:var(--paper-2)}
+  .article h3{margin-bottom:8px}
+  .article h3 a:hover{color:var(--accent)}
+  .article .excerpt{color:var(--ink-soft);font-size:14px;line-height:1.55;margin-bottom:12px}
+  .article .foot{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule-soft);font:500 11.5px/1 "Inter";color:var(--ink-mute);display:flex;justify-content:space-between;align-items:center}
+
+  .art-img::before{content:"";position:absolute;inset:0}
+  .art-img .lbl{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);color:#fff;padding:4px 8px;font:600 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;z-index:2}
+  .art-img .credit{position:absolute;bottom:8px;right:10px;font:500 9.5px/1 "JetBrains Mono",monospace;color:rgba(255,255,255,.78);letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.32);padding:3px 6px;z-index:2}
+
+  .bg-oil::before{background:radial-gradient(circle at 30% 30%,oklch(0.48 0.14 60 / 0.55),transparent 50%),linear-gradient(160deg,oklch(0.24 0.06 40) 0%,oklch(0.12 0.03 30) 100%)}
+  .bg-factory::before{background:radial-gradient(circle at 70% 40%,oklch(0.62 0.10 245 / 0.45),transparent 50%),linear-gradient(180deg,oklch(0.38 0.08 240) 0%,oklch(0.18 0.05 250) 100%)}
+  .bg-housing::before{background:radial-gradient(circle at 40% 60%,oklch(0.68 0.11 75 / 0.6),transparent 55%),linear-gradient(160deg,oklch(0.54 0.09 70) 0%,oklch(0.28 0.06 60) 100%)}
+  .bg-ai::before{background:radial-gradient(circle at 70% 30%,oklch(0.58 0.15 300 / 0.4),transparent 55%),linear-gradient(180deg,oklch(0.22 0.06 280) 0%,oklch(0.12 0.04 270) 100%)}
+  .bg-trade::before{background:radial-gradient(circle at 30% 70%,oklch(0.52 0.14 20 / 0.6),transparent 55%),linear-gradient(170deg,oklch(0.38 0.12 22) 0%,oklch(0.18 0.07 20) 100%)}
+  .bg-euro::before{background:radial-gradient(circle at 60% 40%,oklch(0.62 0.14 240 / 0.5),transparent 55%),linear-gradient(160deg,oklch(0.42 0.14 245) 0%,oklch(0.22 0.10 250) 100%)}
+
+  .featured-wide{
+    grid-column:1 / -1;display:grid;grid-template-columns:1.05fr 1fr;gap:32px;
+    background:var(--card);border:1px solid var(--rule);padding:28px;border-radius:2px;align-items:center
+  }
+  .featured-wide .art-img{aspect-ratio:5/4;margin:0}
+  .featured-wide h3{font-size:clamp(22px,1.2rem + 0.8vw,30px);line-height:1.12;margin-bottom:12px}
+  .featured-wide .excerpt{font-family:"Playfair Display",serif;font-style:italic;font-size:17px;color:var(--ink-soft);line-height:1.5}
+
+  /* Opinion strip */
+  .opinion{background:var(--card);border:1px solid var(--rule);padding:32px;margin:0 0 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .op-card{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start}
+  .op-photo{width:64px;height:64px;border-radius:50%;flex-shrink:0;position:relative;overflow:hidden;border:1px solid var(--rule)}
+  .op-photo.a{background:radial-gradient(circle at 35% 30%,oklch(0.72 0.09 40),oklch(0.38 0.10 22))}
+  .op-photo.b{background:radial-gradient(circle at 35% 30%,oklch(0.70 0.10 240),oklch(0.30 0.12 260))}
+  .op-photo.c{background:radial-gradient(circle at 35% 30%,oklch(0.74 0.11 140),oklch(0.38 0.10 150))}
+  .op-card h4{font-family:"Playfair Display",serif;font-size:17px;line-height:1.25;margin-bottom:8px;font-style:italic}
+  .op-card h4 a:hover{color:var(--accent)}
+  .op-author{font:700 10.5px/1 "Inter";letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .op-role{font:500 11px/1 "Playfair Display",serif;color:var(--ink-mute);font-style:italic;margin-bottom:10px}
+  .op-excerpt{font-size:13px;color:var(--ink-soft);line-height:1.55}
+
+  /* Sidebar */
+  .iab-box{background:var(--card);border:1px solid var(--rule);padding:14px}
+  .iab-box .iab-label{font:600 9.5px/1 "Inter";letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;display:flex;justify-content:space-between}
+  .iab-box .iab-label span:last-child{color:var(--ink-mute);font-weight:500;font-family:"JetBrains Mono",monospace}
+  .iab-slot{background:var(--paper-2);aspect-ratio:300/250;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink-mute);font:500 12px/1.4 "Inter";text-align:center;gap:6px;border:1px dashed var(--rule)}
+  .iab-slot.half{aspect-ratio:300/600}
+  .iab-slot strong{font-weight:700;color:var(--ink-soft);font-size:13px}
+  .iab-slot .dim{font-size:11px;color:var(--ink-mute);font-family:"JetBrains Mono",monospace}
+  .iab-slot.promo{background:var(--accent);color:#fff;border-style:solid;border-color:var(--accent);padding:20px;text-align:left;align-items:flex-start;justify-content:space-between;aspect-ratio:300/250}
+  .iab-slot.promo .top{display:flex;flex-direction:column;gap:6px}
+  .iab-slot.promo .kicker{color:oklch(0.82 0.14 78);margin:0}
+  .iab-slot.promo h4{font-family:"Playfair Display",serif;font-size:22px;font-weight:800;color:#fff;line-height:1.12;font-style:italic}
+  .iab-slot.promo .cta{font:600 11px/1 "Inter";letter-spacing:.14em;text-transform:uppercase;color:oklch(0.82 0.14 78);display:inline-flex;gap:6px;align-items:center}
+
+  .most-read{border:1px solid var(--ink);padding:20px}
+  .most-read > h4{font-family:"Playfair Display",serif;font-size:20px;margin:0 0 12px;font-style:italic;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+  .most-read ol{padding:0;margin:0;list-style:none;counter-reset:mr}
+  .most-read li{counter-increment:mr;display:grid;grid-template-columns:38px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--rule-soft);align-items:start}
+  .most-read li:last-child{border:none;padding-bottom:0}
+  .most-read li::before{content:counter(mr,decimal-leading-zero);font-family:"Playfair Display",serif;font-size:28px;font-weight:900;font-style:italic;color:var(--accent);line-height:1;padding-top:2px}
+  .most-read li a{font:600 13.5px/1.35 "Inter";color:var(--ink);display:block;margin-bottom:4px}
+  .most-read li a:hover{color:var(--accent)}
+  .most-read li .cat{font:700 9.5px/1 "Inter";letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute)}
+
+  /* Briefing widget */
+  .briefing{background:var(--ink);color:var(--paper);padding:22px}
+  .briefing h5{font-family:"Playfair Display",serif;font-style:italic;font-weight:800;font-size:22px;color:#fff;margin:0 0 4px}
+  .briefing .sub{font:600 10px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px}
+  .briefing ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  .briefing li{display:grid;grid-template-columns:54px 1fr;gap:10px;font:500 12.5px/1.4 "Inter";border-bottom:1px dashed #2a2c32;padding-bottom:12px}
+  .briefing li:last-child{border:none;padding-bottom:0}
+  .briefing li .t{color:var(--accent-2);font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600}
+  .briefing li .t b{display:block;color:#fff;font-weight:700;font-size:13px;font-family:"Playfair Display",serif;font-style:italic;margin-bottom:2px}
+  .briefing li .n{color:#cbcdd5}
+  .briefing li .n b{color:#fff;font-weight:600}
+
+  /* Footer */
+  footer{background:var(--ink);color:var(--paper);padding:56px 0 24px;margin-top:40px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid #2a2c32}
+  .foot-brand .wordmark{color:var(--paper);font-size:48px;text-align:left}
+  .foot-brand .wordmark .the{color:var(--accent-2)}
+  .foot-brand p{font-family:"Playfair Display",serif;font-style:italic;color:#9ca0ac;font-size:14px;max-width:36ch;margin:14px 0 18px;line-height:1.5}
+  .foot-social{display:flex;gap:10px}
+  .foot-social a{width:34px;height:34px;border:1px solid #2a2c32;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .foot-social a:hover{background:var(--accent);border-color:var(--accent)}
+  .foot-social svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .foot-col h5{font:700 10.5px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:var(--paper);margin:0 0 16px}
+  .foot-col ul{padding:0;margin:0;list-style:none}
+  .foot-col li{margin-bottom:10px}
+  .foot-col a{color:#9ca0ac;font-size:13px;transition:color .2s}
+  .foot-col a:hover{color:var(--accent-2)}
+  .foot-legal{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:11.5px;color:#6b6e78;flex-wrap:wrap;gap:12px;font-family:"JetBrains Mono",monospace}
+  .foot-legal .links{display:flex;gap:20px}
+  .foot-legal a:hover{color:var(--paper)}
+
+  @media (max-width:980px){
+    .hero-grid,.grid-news,.main-layout,.opinion,.foot-grid,.featured-wide{grid-template-columns:1fr}
+    .data-block{grid-template-columns:repeat(2,1fr)}
+    .data-cell{border-bottom:1px solid var(--rule)}
+    .data-cell:nth-child(even){border-right:none}
+    .mast-main{grid-template-columns:1fr;gap:16px}
+    .mast-side,.mast-side.r{text-align:left;max-width:none;margin:0}
+    .wordmark{text-align:left}
+  }
+</style>
+</head>
+<body>
+
+<!-- Markets ticker -->
+<div class="ticker" aria-label="Indicadores de mercado en vivo">
+  <div class="tag">Mercados · 13:42 CET</div>
+  <div class="track">
+    <span class="it"><span class="lbl">IBEX 35</span><b>13.284,6</b><span class="dn">▼ 0,67%</span></span>
+    <span class="it"><span class="lbl">EURO STOXX 50</span><b>5.412,8</b><span class="dn">▼ 0,34%</span></span>
+    <span class="it"><span class="lbl">DAX</span><b>20.918,3</b><span class="dn">▼ 0,21%</span></span>
+    <span class="it"><span class="lbl">S&amp;P 500</span><b>6.182,7</b><span class="up">▲ 0,18%</span></span>
+    <span class="it"><span class="lbl">EUR / USD</span><b>1,1512</b><span class="up">▲ 0,22%</span></span>
+    <span class="it"><span class="lbl">Brent</span><b>$94,8</b><span class="up">▲ 1,32%</span></span>
+    <span class="it"><span class="lbl">TTF gas · may</span><b>€41,2</b><span class="up">▲ 0,80%</span></span>
+    <span class="it"><span class="lbl">Bund 10Y</span><b>3,04%</b><span class="up">▲ 3 pb</span></span>
+    <span class="it"><span class="lbl">Bono ES 10Y</span><b>3,51%</b><span class="up">▲ 2 pb</span></span>
+    <span class="it"><span class="lbl">Euríbor 12m</span><b>3,42%</b><span class="dn">▼ 1 pb</span></span>
+    <span class="it"><span class="lbl">Oro</span><b>$2.812</b><span class="up">▲ 0,41%</span></span>
+    <span class="it"><span class="lbl">BTC</span><b>$77.420</b><span class="up">▲ 1,86%</span></span>
+    <!-- duplicate -->
+    <span class="it"><span class="lbl">IBEX 35</span><b>13.284,6</b><span class="dn">▼ 0,67%</span></span>
+    <span class="it"><span class="lbl">EURO STOXX 50</span><b>5.412,8</b><span class="dn">▼ 0,34%</span></span>
+    <span class="it"><span class="lbl">S&amp;P 500</span><b>6.182,7</b><span class="up">▲ 0,18%</span></span>
+    <span class="it"><span class="lbl">EUR / USD</span><b>1,1512</b><span class="up">▲ 0,22%</span></span>
+    <span class="it"><span class="lbl">Brent</span><b>$94,8</b><span class="up">▲ 1,32%</span></span>
+    <span class="it"><span class="lbl">Bund 10Y</span><b>3,04%</b><span class="up">▲ 3 pb</span></span>
+  </div>
+</div>
+
+<!-- Masthead -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-top">
+      <div class="mast-date">Vie · 24 Abr 2026 · Edición Madrid · Nº 3.182</div>
+      <div class="mast-weather mono">MADRID <b>17°</b> · FRÁNCFORT <b>12°</b> · NY <b>14°</b></div>
+      <div class="mast-actions">
+        <button class="mast-btn">Iniciar sesión</button>
+        <button class="mast-btn mast-btn--sub">Suscribirse · 1€ / mes</button>
+      </div>
+    </div>
+    <div class="mast-main">
+      <div class="mast-side">
+        <span class="k">Lo que marca el día</span>
+        El Brent supera los 94$ tras el último incidente en Ormuz. El BCE aplaza la decisión a junio.
+      </div>
+      <div class="wordmark">
+        <span class="the">— La —</span>
+        Divisa
+      </div>
+      <div class="mast-side r">
+        <span class="k">El día en un número</span>
+        <b style="font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:26px;color:var(--accent);line-height:1">2,6%</b><br>
+        Inflación eurozona · marzo
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Section nav -->
+<nav class="sec-nav">
+  <div class="wrap sec-nav-inner">
+    <ul>
+      <li class="active"><a href="#">Portada</a></li>
+      <li><a href="#">Macro</a></li>
+      <li><a href="#">Mercados</a></li>
+      <li><a href="#">Empresas</a></li>
+      <li><a href="#">Energía</a></li>
+      <li><a href="#">Vivienda</a></li>
+      <li><a href="#">Bruselas</a></li>
+      <li><a href="#">Tecnología</a></li>
+      <li><a href="#">Opinión</a></li>
+    </ul>
+    <div class="sec-nav-right">
+      <span class="live">En vivo · Actualizado 13:42 CET</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Política monetaria · Análisis</span>
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1>El BCE aplaza la decisión a junio: la <em>crisis de Ormuz</em> rompe el guion y deja a Lagarde con dos lecturas más y ninguna certeza.</h1>
+        <p class="hero-lede">Hace un mes los futuros descontaban al 78 % una subida de 25 puntos básicos. Hoy la probabilidad es del 10 %. El Consejo prefiere esperar a tener proyecciones de junio antes de mover ficha — y el consenso interno, según tres fuentes, es que el riesgo mayor es repetir un «trichetazo», no quedarse corto.</p>
+        <div class="hero-meta">
+          <span class="byline">Inés Balbuena Arrieta</span>
+          <span class="dot-sep">Corresponsal · Fráncfort</span>
+          <span class="dot-sep">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            12 min lectura
+          </span>
+          <span class="dot-sep" style="color:var(--accent);font-weight:600">◆ Exclusivo suscriptores</span>
+        </div>
+      </div>
+      <figure class="hero-art">
+        <span class="tag">Exclusiva</span>
+        <div>
+          <div class="sub">Tipo depo · BCE</div>
+          <div class="big">2,00 %</div>
+          <div class="delta">▬ sin cambio · 6ª reunión</div>
+        </div>
+        <div class="chart" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="oklch(0.62 0.16 28)" stop-opacity=".35"/>
+                <stop offset="100%" stop-color="oklch(0.62 0.16 28)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- grid -->
+            <g stroke="rgba(255,255,255,.08)" stroke-width="1">
+              <line x1="0" y1="36" x2="320" y2="36"/>
+              <line x1="0" y1="72" x2="320" y2="72"/>
+              <line x1="0" y1="108" x2="320" y2="108"/>
+              <line x1="0" y1="144" x2="320" y2="144"/>
+            </g>
+            <!-- historical line: 4% → 2% descent, flatten -->
+            <path d="M0 18 L30 24 L60 40 L90 60 L120 84 L150 108 L180 132 L210 138 L240 136 L270 134 L300 132 L320 130"
+                  fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <!-- forecast / market-implied -->
+            <path d="M210 138 L240 130 L270 122 L300 118 L320 114"
+                  fill="none" stroke="oklch(0.72 0.14 149)" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M210 138 L240 130 L270 122 L300 118 L320 114 L320 180 L210 180 Z" fill="url(#g1)"/>
+            <!-- labels -->
+            <g font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,.55)">
+              <text x="0" y="174">Jul 24</text>
+              <text x="120" y="174">Ene 25</text>
+              <text x="210" y="174">Hoy</text>
+              <text x="290" y="174">Dic 26</text>
+            </g>
+            <g font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,.55)">
+              <text x="302" y="22">4,0%</text>
+              <text x="302" y="58">3,0%</text>
+              <text x="302" y="94">2,5%</text>
+              <text x="302" y="130">2,0%</text>
+            </g>
+            <!-- pause marker -->
+            <circle cx="210" cy="138" r="4" fill="oklch(0.72 0.15 22)"/>
+            <text x="166" y="128" font-family="Inter,sans" font-size="9" fill="oklch(0.82 0.14 22)" font-weight="600">PAUSA · 6ª</text>
+          </svg>
+        </div>
+        <figcaption><b>Tipo de depósito · BCE.</b> Línea continua: efectivo. Línea discontinua: implícito OIS. Fuente: ECB / Bloomberg.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Data block -->
+<div class="wrap">
+  <div class="data-block">
+    <div class="data-cell">
+      <div class="l">PIB España · 2026 (prev.)</div>
+      <div class="v">+2,1 %</div>
+      <div class="delta dn">▼ –0,8 pp vs 2025 · FMI</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">HICP eurozona · marzo</div>
+      <div class="v">2,6 %</div>
+      <div class="delta up">▲ +0,7 pp vs feb</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Euríbor 12m</div>
+      <div class="v">3,42 %</div>
+      <div class="delta dn">▼ mín. desde oct. 2025</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Déficit comercial · feb</div>
+      <div class="v">–3.296 M€</div>
+      <div class="delta up">▲ –24 % interanual</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Brent</div>
+      <div class="v">$94,8</div>
+      <div class="delta up">▲ +15 % desde Ormuz</div>
+    </div>
+  </div>
+</div>
+
+<!-- Section strip -->
+<div class="wrap">
+  <div class="sec-strip">
+    <h2>La agenda del día <span class="ast">*</span></h2>
+    <div class="meta">7 piezas · curadas por la redacción</div>
+  </div>
+</div>
+
+<!-- Main + sidebar -->
+<div class="wrap main-layout">
+  <div>
+    <div class="grid-news">
+
+      <article class="article featured-wide">
+        <div class="art-img bg-oil">
+          <span class="lbl">Ormuz · Golfo Pérsico</span>
+          <span class="credit">Reuters / H. Darwish</span>
+        </div>
+        <div>
+          <span class="kicker kicker--accent-band">Energía · Exclusiva</span>
+          <h3><a href="#">Bruselas activa <em>Accelerate EU</em>: cupones sociales, rebaja del IVA a la luz y un «vigilante» del queroseno para evitar una crisis en la aviación.</a></h3>
+          <p class="excerpt">El paquete responde al encarecimiento del Brent tras los incidentes en Ormuz. El borrador filtrado fija incentivos al coche eléctrico y obliga a los Estados a un plan de racionamiento voluntario antes del 30 de junio. Tres capitales ya negocian excepciones.</p>
+          <div class="foot">
+            <span>Lucía Hernández · Bruselas</span>
+            <span>Hace 2 h · 14 min</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-ai">
+          <span class="lbl">Madrid · Tech</span>
+          <span class="credit">EFE / J. Ríos</span>
+        </div>
+        <span class="kicker">Empleo · IA</span>
+        <h3><a href="#">Capgemini e Inetum plantean dos ERE que afectan al 7 % y al 5 % de su plantilla en España: la IA entra en la cuenta de resultados.</a></h3>
+        <p class="excerpt">Más de 12.000 empleos comprometidos entre enero y abril en compañías con sede en España, según datos sectoriales. La incertidumbre geopolítica acelera una decisión que ya estaba escrita.</p>
+        <div class="foot">
+          <span>Aitor Caballero</span>
+          <span>Hace 4 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-factory">
+          <span class="lbl">Comercio exterior</span>
+          <span class="credit">Reuters / L. Gen</span>
+        </div>
+        <span class="kicker kicker--orange">Macro · Comercio</span>
+        <h3><a href="#">El déficit comercial mejora un 24 % en los dos primeros meses del año gracias al hundimiento del déficit energético.</a></h3>
+        <p class="excerpt">Las exportaciones de mercancías alcanzan los 31.720 millones en febrero, un 9,7 % más mensual. El superávit con la UE sostiene: 4.021 millones. Portugal, Francia y Reino Unido, los tres mayores.</p>
+        <div class="foot">
+          <span>Clara Mendoza</span>
+          <span>Hace 5 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-euro">
+          <span class="lbl">Madrid · Moncloa</span>
+          <span class="credit">Pool / D. Castro</span>
+        </div>
+        <span class="kicker">Fondos europeos · España</span>
+        <h3><a href="#">«España Crece» echa a andar: el Tesoro transferirá los primeros fondos en mayo y Bruselas cierra la estrategia en el segundo trimestre.</a></h3>
+        <p class="excerpt">Funcas calcula que los Next Generation explican entre el 10 % y el 14 % del crecimiento del PIB desde 2021. El FMI critica la lentitud de la ejecución; Cuerpo promete operatividad inmediata.</p>
+        <div class="foot">
+          <span>Pablo Vilches</span>
+          <span>Hace 6 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-housing">
+          <span class="lbl">Vivienda · España</span>
+          <span class="credit">EFE / A. Torres</span>
+        </div>
+        <span class="kicker kicker--ink">Vivienda · Mercado</span>
+        <h3><a href="#">La compraventa de vivienda cae un 0,5 % en febrero: segundo mes en negativo tras el desplome de enero.</a></h3>
+        <p class="excerpt">El pequeño casero no es el actor dominante que pintan. Los visados de obra nueva siguen en máximos desde 2008 — y aun así, insuficientes para la demanda.</p>
+        <div class="foot">
+          <span>Irene Baquero</span>
+          <span>Hace 7 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-trade">
+          <span class="lbl">Málaga · AVE</span>
+          <span class="credit">EFE / D. Pérez</span>
+        </div>
+        <span class="kicker">Infraestructuras · Transporte</span>
+        <h3><a href="#">Renfe, Iryo y Ouigo restablecen desde el 30 de abril sus AVE directos con Málaga: los tres operadores aceptan circular por vía única.</a></h3>
+        <p class="excerpt">Un acuerdo técnico desbloquea meses de retrasos. El reparto de huecos de tráfico no está del todo cerrado; el regulador firmará antes del verano.</p>
+        <div class="foot">
+          <span>S. Arenales</span>
+          <span>Hace 9 h</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Opinion strip -->
+    <div class="sec-strip" style="margin-top:52px">
+      <h2>Firmas <span class="ast">·</span> opinión</h2>
+      <div class="meta">Tres voces · viernes</div>
+    </div>
+    <div class="opinion">
+      <div class="op-card">
+        <div class="op-photo a"></div>
+        <div>
+          <div class="op-author">Rémi Garnier</div>
+          <div class="op-role">Ex-economista jefe · BCE</div>
+          <h4><a href="#">El error no sería subir tipos en junio. Sería haber construido un marco que aún confunde shock de oferta con demanda sobrecalentada.</a></h4>
+          <p class="op-excerpt">Fráncfort lleva dos años reescribiendo su función de reacción en tiempo real. Cada comunicado añade una variable. Esa opacidad la pagan los mercados y las familias endeudadas.</p>
+        </div>
+      </div>
+      <div class="op-card">
+        <div class="op-photo b"></div>
+        <div>
+          <div class="op-author">Elsa Pombo</div>
+          <div class="op-role">Economista · CaixaBank Research</div>
+          <h4><a href="#">El <em>carry-over</em> del cuarto trimestre suma 0,2 puntos mecánicos a 2026. Eso no es crecimiento: es memoria estadística.</a></h4>
+          <p class="op-excerpt">El PIB español entrará en una desaceleración intensa. La inversión pública en defensa es el único contrafuego que queda. Conviene decirlo antes de la campaña.</p>
+        </div>
+      </div>
+      <div class="op-card">
+        <div class="op-photo c"></div>
+        <div>
+          <div class="op-author">Darío Cantú</div>
+          <div class="op-role">Gestor · Federated Hermes</div>
+          <h4><a href="#">Con el 70 % del stock hipotecario a tipo variable, cada mes que el BCE no se mueve vale 45 € en la cuota media.</a></h4>
+          <p class="op-excerpt">La política monetaria europea se vuelve reactiva a la geopolítica — y Madrid es donde más cuesta cada reunión pospuesta. Los servicers ya lo están modelizando.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="briefing">
+      <h5>Briefing del día</h5>
+      <div class="sub">Cinco citas · viernes</div>
+      <ul>
+        <li>
+          <div class="t"><b>09:00</b>CET</div>
+          <div class="n"><b>INE · Índice de precios industriales.</b> El consenso espera +3,1 % interanual.</div>
+        </li>
+        <li>
+          <div class="t"><b>11:00</b>CET</div>
+          <div class="n"><b>Eurostat · confianza del consumidor.</b> Primera lectura tras el shock energético.</div>
+        </li>
+        <li>
+          <div class="t"><b>14:30</b>CET</div>
+          <div class="n"><b>BEA · PCE subyacente EE. UU.</b> La Fed mira el dato con atención. Consenso +2,7 %.</div>
+        </li>
+        <li>
+          <div class="t"><b>18:00</b>CET</div>
+          <div class="n"><b>Consejo UE · Ayia Napa.</b> Medidas de ahorro energético tras la crisis en el Golfo.</div>
+        </li>
+        <li>
+          <div class="t"><b>22:00</b>CET</div>
+          <div class="n"><b>Baker Hughes · <em>rig count</em>.</b> Señal para el WTI del lunes.</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Publicidad</span><span>NP-3 · 300×250</span></div>
+      <div class="iab-slot">
+        <strong>IAB Medium Rectangle</strong>
+        <span class="dim">300 × 250</span>
+      </div>
+    </div>
+
+    <div class="most-read">
+      <h4>Lo más leído <span style="color:var(--accent)">·</span> semana</h4>
+      <ol>
+        <li>
+          <a href="#">El BCE aplaza la decisión a junio: por qué el consenso interno teme más equivocarse subiendo.</a>
+          <span class="cat">Política monetaria</span>
+        </li>
+        <li>
+          <a href="#">Capgemini e Inetum: los ERE que marcan el precio real de la IA en España.</a>
+          <span class="cat">Empresas</span>
+        </li>
+        <li>
+          <a href="#">El déficit comercial cae un 24 %: los tres países que explican el superávit.</a>
+          <span class="cat">Macro</span>
+        </li>
+        <li>
+          <a href="#">Accelerate EU, punto por punto: cupones, IVA eléctrico y vigilante del queroseno.</a>
+          <span class="cat">Bruselas</span>
+        </li>
+        <li>
+          <a href="#">El FMI advierte: el viento de cola español empieza a amainar.</a>
+          <span class="cat">Macro</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Patrocinado</span><span>NP-3 · 300×250</span></div>
+      <div class="iab-slot promo">
+        <div class="top">
+          <span class="kicker">La Divisa <span style="color:#fff">Pro</span></span>
+          <h4>El <em style="font-style:italic">briefing</em> que leen los que mueven el dinero antes de las nueve.</h4>
+        </div>
+        <span class="cta">Probar 30 días · 1€ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Publicidad</span><span>NP-7 · 300×600</span></div>
+      <div class="iab-slot half">
+        <strong>IAB Half Page</strong>
+        <span class="dim">300 × 600</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="wordmark"><span class="the">— La —</span>Divisa</div>
+        <p>Un diario de economía y mercados publicado en Madrid. Escribimos con la disciplina de una mesa de operaciones y el oído de una redacción.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="RSS"><svg viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Secciones</h5>
+        <ul>
+          <li><a href="#">Macro</a></li>
+          <li><a href="#">Mercados</a></li>
+          <li><a href="#">Empresas</a></li>
+          <li><a href="#">Energía</a></li>
+          <li><a href="#">Vivienda</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Redacción</h5>
+        <ul>
+          <li><a href="#">Manifiesto</a></li>
+          <li><a href="#">Equipo</a></li>
+          <li><a href="#">Metodología</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Suscripción</h5>
+        <ul>
+          <li><a href="#">La Divisa Pro</a></li>
+          <li><a href="#">Briefings</a></li>
+          <li><a href="#">App</a></li>
+          <li><a href="#">Regalar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Transparencia</h5>
+        <ul>
+          <li><a href="#">Código editorial</a></li>
+          <li><a href="#">Propiedad</a></li>
+          <li><a href="#">Correcciones</a></li>
+          <li><a href="#">Quejas</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© La Divisa Ediciones S.L. · Edición Nº 3.182 · Construido sobre SYX × Atlas</span>
+      <div class="links">
+        <a href="#">Aviso legal</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

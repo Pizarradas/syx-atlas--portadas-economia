@@ -1,0 +1,325 @@
+/* ============================================================
+   SYX Atlas — Colors & Type
+   Single-file foundation extracted from the SCSS token tree.
+   Source of truth: scss/abstracts/tokens/{primitives,semantic}/
+   ============================================================ */
+
+/* Webfonts: Space Grotesk + Syne (Google Fonts) */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap");
+
+:root {
+  /* ────────────────────────────────────────────────
+     PRIMITIVE COLORS — raw palette, OKLCH
+     ──────────────────────────────────────────────── */
+  --primitive-color-black: oklch(0 0 0);
+  --primitive-color-white: oklch(1 0 0);
+
+  --primitive-color-gray-50:  oklch(0.97 0 0);
+  --primitive-color-gray-100: oklch(0.93 0 0);
+  --primitive-color-gray-200: oklch(0.88 0 0);
+  --primitive-color-gray-300: oklch(0.80 0 0);
+  --primitive-color-gray-400: oklch(0.70 0 0);
+  --primitive-color-gray-500: oklch(0.60 0 0);
+  --primitive-color-gray-600: oklch(0.51 0 0);
+  --primitive-color-gray-700: oklch(0.42 0 0);
+  --primitive-color-gray-800: oklch(0.32 0 0);
+  --primitive-color-gray-900: oklch(0.22 0 0);
+
+  --primitive-color-purple-50:  oklch(0.97 0.017 292.209);
+  --primitive-color-purple-100: oklch(0.93 0.043 291.611);
+  --primitive-color-purple-200: oklch(0.88 0.090 290.251);
+  --primitive-color-purple-300: oklch(0.80 0.186 284.567);
+  --primitive-color-purple-400: oklch(0.70 0.190 278.846);
+  --primitive-color-purple-500: oklch(0.60 0.118 280.644);
+  --primitive-color-purple-600: oklch(0.51 0.100 281.395);
+  --primitive-color-purple-700: oklch(0.42 0.082 282.423);
+  --primitive-color-purple-800: oklch(0.32 0.062 283.903);
+  --primitive-color-purple-900: oklch(0.22 0.041 287.021);
+
+  --primitive-color-pink-50:  oklch(0.97 0.024 354.284);
+  --primitive-color-pink-100: oklch(0.93 0.061 357.510);
+  --primitive-color-pink-200: oklch(0.88 0.127 0.003);
+  --primitive-color-pink-300: oklch(0.80 0.190 3.538);
+  --primitive-color-pink-400: oklch(0.70 0.221 6.474);
+  --primitive-color-pink-500: oklch(0.60 0.239 9.566);
+  --primitive-color-pink-600: oklch(0.51 0.254 16.626);
+  --primitive-color-pink-700: oklch(0.42 0.215 16.014);
+  --primitive-color-pink-800: oklch(0.32 0.174 15.009);
+  --primitive-color-pink-900: oklch(0.22 0.130 13.064);
+
+  --primitive-color-blue-50:  oklch(0.97 0.027 285.097);
+  --primitive-color-blue-100: oklch(0.93 0.069 284.088);
+  --primitive-color-blue-200: oklch(0.88 0.144 281.475);
+  --primitive-color-blue-300: oklch(0.80 0.218 276.885);
+  --primitive-color-blue-400: oklch(0.70 0.252 273.552);
+  --primitive-color-blue-500: oklch(0.60 0.275 270.486);
+  --primitive-color-blue-600: oklch(0.51 0.312 264.075);
+  --primitive-color-blue-700: oklch(0.42 0.264 264.082);
+  --primitive-color-blue-800: oklch(0.32 0.213 264.093);
+  --primitive-color-blue-900: oklch(0.22 0.158 264.114);
+
+  --primitive-color-green-50:  oklch(0.97 0.021 158.247);
+  --primitive-color-green-100: oklch(0.93 0.052 157.460);
+  --primitive-color-green-200: oklch(0.88 0.103 155.902);
+  --primitive-color-green-300: oklch(0.80 0.191 151.588);
+  --primitive-color-green-400: oklch(0.70 0.203 148.868);
+  --primitive-color-green-500: oklch(0.60 0.140 149.363);
+  --primitive-color-green-600: oklch(0.51 0.116 149.694);
+  --primitive-color-green-700: oklch(0.42 0.090 150.230);
+  --primitive-color-green-800: oklch(0.32 0.063 151.418);
+  --primitive-color-green-900: oklch(0.22 0.043 153.713);
+
+  --primitive-color-yellow-50:  oklch(0.97 0.019 91.436);
+  --primitive-color-yellow-100: oklch(0.93 0.046 91.610);
+  --primitive-color-yellow-200: oklch(0.88 0.090 91.639);
+  --primitive-color-yellow-300: oklch(0.80 0.127 91.064);
+  --primitive-color-yellow-400: oklch(0.70 0.154 89.335);
+  --primitive-color-yellow-500: oklch(0.60 0.163 86.856);
+  --primitive-color-yellow-600: oklch(0.51 0.152 85.734);
+  --primitive-color-yellow-700: oklch(0.42 0.126 86.127);
+  --primitive-color-yellow-800: oklch(0.32 0.098 86.786);
+  --primitive-color-yellow-900: oklch(0.22 0.068 88.181);
+
+  --primitive-color-red-500:    oklch(0.60 0.244 22.773);
+  --primitive-color-brown-500:  oklch(0.60 0.116 38.211);
+
+  --primitive-color-success-500: oklch(0.60 0.181 143.399);
+  --primitive-color-error-500:   oklch(0.60 0.143  25.074);
+  --primitive-color-warning-500: oklch(0.60 0.171 106.050);
+
+  /* ────────────────────────────────────────────────
+     SEMANTIC COLORS — role aliases
+     ──────────────────────────────────────────────── */
+  --semantic-color-primary:   var(--primitive-color-purple-500);
+  --semantic-color-secondary: var(--primitive-color-pink-500);
+  --semantic-color-tertiary:  var(--primitive-color-blue-500);
+  --semantic-color-quaternary:var(--primitive-color-green-500);
+  --semantic-color-quinary:   var(--primitive-color-yellow-500);
+
+  --semantic-color-bg-primary:   var(--primitive-color-white);
+  --semantic-color-bg-secondary: var(--primitive-color-pink-50);
+  --semantic-color-bg-tertiary:  var(--primitive-color-gray-50);
+  --semantic-color-bg-inverse:   var(--primitive-color-black);
+
+  --semantic-color-text-primary:   var(--primitive-color-purple-500);
+  --semantic-color-text-secondary: var(--primitive-color-gray-700);
+  --semantic-color-text-tertiary:  var(--primitive-color-gray-500);
+  --semantic-color-text-inverse:   var(--primitive-color-white);
+  --semantic-color-text-disabled:  var(--primitive-color-gray-300);
+
+  --semantic-color-border-default: var(--primitive-color-gray-300);
+  --semantic-color-border-subtle:  var(--primitive-color-gray-200);
+  --semantic-color-border-strong:  var(--primitive-color-gray-400);
+  --semantic-color-border-focus:   var(--primitive-color-pink-500);
+
+  --semantic-color-link-default: var(--primitive-color-pink-500);
+  --semantic-color-link-hover:   var(--primitive-color-purple-500);
+  --semantic-color-link-visited: var(--primitive-color-purple-500);
+
+  --semantic-color-state-hover-primary:   var(--primitive-color-pink-500);
+  --semantic-color-state-hover-secondary: var(--primitive-color-purple-500);
+  --semantic-focus-ring-color:            var(--primitive-color-pink-500);
+  --semantic-focus-ring-width:            2px;
+
+  --semantic-color-state-success: var(--primitive-color-success-500);
+  --semantic-color-state-error:   var(--primitive-color-error-500);
+  --semantic-color-state-warning: var(--primitive-color-warning-500);
+  --semantic-color-state-info:    var(--primitive-color-blue-500);
+
+  --semantic-color-selection-bg:   var(--primitive-color-purple-500);
+  --semantic-color-selection-text: var(--primitive-color-white);
+
+  /* ────────────────────────────────────────────────
+     TYPOGRAPHY — primitives + semantic
+     ──────────────────────────────────────────────── */
+  --primitive-font-family-space-grotesk: "Space Grotesk", "Google-Space-Grotesk--regular", Arial, sans-serif;
+  --primitive-font-family-syne:          "Syne", "Google-Syne--bold", Arial, sans-serif;
+  --primitive-font-family-mono:          "JetBrains Mono", "Courier New", Courier, monospace;
+
+  --semantic-font-family-primary:      var(--primitive-font-family-space-grotesk);
+  --semantic-font-family-primary-bold: var(--primitive-font-family-space-grotesk);
+  --semantic-font-family-heading:      var(--primitive-font-family-syne);
+  --semantic-font-family-heading-md:   var(--primitive-font-family-syne);
+  --semantic-font-family-mono:         var(--primitive-font-family-mono);
+
+  /* Major Third (×1.250) fluid scale */
+  --primitive-font-size-xs:   clamp(0.640rem, 0.61rem + 0.14vw, 0.720rem);
+  --primitive-font-size-sm:   clamp(0.800rem, 0.76rem + 0.18vw, 0.900rem);
+  --primitive-font-size-base: clamp(1.000rem, 0.96rem + 0.19vw, 1.125rem);
+  --primitive-font-size-md:   clamp(1.250rem, 1.19rem + 0.24vw, 1.406rem);
+  --primitive-font-size-lg:   clamp(1.563rem, 1.49rem + 0.30vw, 1.758rem);
+  --primitive-font-size-xl:   clamp(1.953rem, 1.86rem + 0.37vw, 2.197rem);
+  --primitive-font-size-2xl:  clamp(2.441rem, 2.33rem + 0.47vw, 2.747rem);
+  --primitive-font-size-3xl:  clamp(3.052rem, 2.91rem + 0.58vw, 3.433rem);
+  --primitive-font-size-4xl:  clamp(3.815rem, 3.63rem + 0.73vw, 4.291rem);
+  --primitive-fluid-font-display: clamp(3.5rem, 3rem + 2.5vw, 5rem);
+
+  --semantic-font-size-overline:    var(--primitive-font-size-xs);
+  --semantic-font-size-caption:     var(--primitive-font-size-xs);
+  --semantic-font-size-body-small:  var(--primitive-font-size-sm);
+  --semantic-font-size-body:        var(--primitive-font-size-base);
+  --semantic-font-size-body-large:  var(--primitive-font-size-md);
+  --semantic-font-size-h6: var(--primitive-font-size-md);
+  --semantic-font-size-h5: var(--primitive-font-size-lg);
+  --semantic-font-size-h4: var(--primitive-font-size-xl);
+  --semantic-font-size-h3: var(--primitive-font-size-2xl);
+  --semantic-font-size-h2: var(--primitive-font-size-3xl);
+  --semantic-font-size-h1: var(--primitive-font-size-4xl);
+
+  --primitive-font-weight-regular:  400;
+  --primitive-font-weight-medium:   500;
+  --primitive-font-weight-semibold: 600;
+  --primitive-font-weight-bold:     700;
+  --primitive-font-weight-black:    800;
+
+  --primitive-line-height-tight:   1;
+  --primitive-line-height-snug:    1.2;
+  --primitive-line-height-normal:  1.5;
+  --primitive-line-height-relaxed: 1.65;
+
+  --primitive-letter-spacing-tight:   -0.02em;
+  --primitive-letter-spacing-normal:  0;
+  --primitive-letter-spacing-wide:    0.06em;
+  --primitive-letter-spacing-wider:   0.10em;
+  --primitive-letter-spacing-display: -0.03em;
+
+  /* ────────────────────────────────────────────────
+     SPACING — 8px base, fluid layout scale
+     ──────────────────────────────────────────────── */
+  --primitive-space-base: 0.5rem; /* 8px */
+  --primitive-space-0:   0;
+  --primitive-space-0-5: 0.25rem;
+  --primitive-space-1:   0.5rem;
+  --primitive-space-1-5: 0.75rem;
+  --primitive-space-2:   1rem;
+  --primitive-space-2-5: 1.25rem;
+  --primitive-space-3:   1.5rem;
+  --primitive-space-4:   2rem;
+  --primitive-space-5:   2.5rem;
+  --primitive-space-6:   3rem;
+  --primitive-space-7:   3.5rem;
+  --primitive-space-8:   4rem;
+  --primitive-space-9:   4.5rem;
+  --primitive-space-10:  5rem;
+  --primitive-space-12:  6rem;
+  --primitive-space-14:  7rem;
+  --primitive-space-16:  8rem;
+  --primitive-space-20: 10rem;
+  --primitive-space-24: 12rem;
+
+  --primitive-fluid-space-xs:  clamp(0.25rem, 0.16rem + 0.38vw, 0.5rem);
+  --primitive-fluid-space-sm:  clamp(0.5rem,  0.32rem + 0.75vw, 1rem);
+  --primitive-fluid-space-md:  clamp(1rem,    0.82rem + 0.75vw, 1.5rem);
+  --primitive-fluid-space-lg:  clamp(1.5rem,  1.32rem + 0.75vw, 2rem);
+  --primitive-fluid-space-xl:  clamp(2rem,    1.65rem + 1.5vw,  3rem);
+  --primitive-fluid-space-xxl: clamp(3rem,    2.65rem + 1.5vw,  4rem);
+
+  /* ────────────────────────────────────────────────
+     BORDERS, RADII, SHADOWS
+     ──────────────────────────────────────────────── */
+  --primitive-border-width-1: 1px;
+  --primitive-border-width-2: 2px;
+  --primitive-border-width-4: 4px;
+
+  --primitive-border-radius-none: 0;
+  --primitive-border-radius-sm:   4px;
+  --primitive-border-radius-md:   8px;
+  --primitive-border-radius-lg:   12px;
+  --primitive-border-radius-xl:   16px;
+  --primitive-border-radius-2xl:  24px;
+  --primitive-border-radius-full: 9999px;
+
+  --semantic-border-radius-default: var(--primitive-border-radius-md);
+  --semantic-border-radius-lg:      var(--primitive-border-radius-lg);
+  --semantic-border-radius-full:    var(--primitive-border-radius-full);
+
+  --primitive-shadow-xs: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+  --primitive-shadow-sm: 0 1px 3px 0 oklch(0 0 0 / 0.10), 0 1px 2px 0 oklch(0 0 0 / 0.06);
+  --primitive-shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.10), 0 2px 4px -1px oklch(0 0 0 / 0.06);
+  --primitive-shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.10), 0 4px 6px -2px oklch(0 0 0 / 0.05);
+  --primitive-shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.10), 0 10px 10px -5px oklch(0 0 0 / 0.04);
+  --primitive-shadow-2xl: 0 25px 50px -12px oklch(0 0 0 / 0.25);
+  --primitive-shadow-inner: inset 0 2px 4px 0 oklch(0 0 0 / 0.06);
+
+  --semantic-shadow-card: 0 1px 3px oklch(0 0 0 / 0.04), 0 4px 12px oklch(0 0 0 / 0.03);
+  --semantic-shadow-focus: 0 0 0.313rem 0 var(--semantic-focus-ring-color);
+}
+
+/* ────────────────────────────────────────────────
+   SEMANTIC ELEMENT STYLES
+   Use these classes/elements directly.
+   ──────────────────────────────────────────────── */
+html, body {
+  font-family: var(--semantic-font-family-primary);
+  font-size:   var(--semantic-font-size-body);
+  line-height: var(--primitive-line-height-relaxed);
+  color:       var(--semantic-color-text-secondary);
+  background:  var(--semantic-color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, .h1 {
+  font-family: var(--semantic-font-family-heading);
+  font-size:   var(--semantic-font-size-h1);
+  font-weight: var(--primitive-font-weight-bold);
+  line-height: var(--primitive-line-height-snug);
+  letter-spacing: var(--primitive-letter-spacing-display);
+  color: var(--semantic-color-text-primary);
+}
+h2, .h2 {
+  font-family: var(--semantic-font-family-heading);
+  font-size:   var(--semantic-font-size-h2);
+  font-weight: var(--primitive-font-weight-bold);
+  line-height: var(--primitive-line-height-snug);
+  letter-spacing: var(--primitive-letter-spacing-tight);
+  color: var(--semantic-color-text-primary);
+}
+h3, .h3 {
+  font-family: var(--semantic-font-family-heading);
+  font-size:   var(--semantic-font-size-h3);
+  font-weight: var(--primitive-font-weight-bold);
+  line-height: var(--primitive-line-height-snug);
+  color: var(--semantic-color-text-primary);
+}
+h4, .h4 {
+  font-family: var(--semantic-font-family-heading);
+  font-size:   var(--semantic-font-size-h4);
+  font-weight: var(--primitive-font-weight-bold);
+  line-height: var(--primitive-line-height-snug);
+  color: var(--semantic-color-text-primary);
+}
+h5, .h5 {
+  font-family: var(--semantic-font-family-primary);
+  font-size:   var(--semantic-font-size-h5);
+  font-weight: var(--primitive-font-weight-semibold);
+  color: var(--semantic-color-text-primary);
+}
+h6, .h6, .overline {
+  font-family: var(--semantic-font-family-primary);
+  font-size:   var(--semantic-font-size-overline);
+  font-weight: var(--primitive-font-weight-semibold);
+  letter-spacing: var(--primitive-letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--semantic-color-text-tertiary);
+}
+p, .body { font-size: var(--semantic-font-size-body); color: var(--semantic-color-text-secondary); }
+.body-large { font-size: var(--semantic-font-size-body-large); }
+.body-small { font-size: var(--semantic-font-size-body-small); }
+small, .caption { font-size: var(--semantic-font-size-caption); color: var(--semantic-color-text-tertiary); }
+
+a, .link {
+  color: var(--semantic-color-link-default);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover, .link:hover { color: var(--semantic-color-link-hover); }
+
+code, .mono, kbd, pre {
+  font-family: var(--semantic-font-family-mono);
+  font-size: 0.92em;
+}
+
+::selection {
+  background: var(--semantic-color-selection-bg);
+  color: var(--semantic-color-selection-text);
+}

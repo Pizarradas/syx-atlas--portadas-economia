@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Bodega · La economía del vino y los destilados</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,700;1,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1e8;
+    --paper-2:#ebe5d4;
+    --card:#fbf9f2;
+    --ink:#1a1410;
+    --ink-soft:#3d342c;
+    --ink-mute:#7a6f62;
+    --rule:#c9bfa8;
+    --rule-soft:#dcd3bc;
+    --wine:oklch(0.38 0.108 18.5);        /* claret */
+    --wine-deep:oklch(0.28 0.098 20);
+    --sauternes:oklch(0.78 0.138 86);     /* golden */
+    --oak:oklch(0.52 0.082 55);           /* tannin */
+    --verdejo:oklch(0.62 0.098 130);      /* green */
+    --up:oklch(0.52 0.14 149);
+    --down:oklch(0.48 0.19 22);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.55}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4,h5{font-family:"Playfair Display",Georgia,serif;font-weight:800;letter-spacing:-.012em;margin:0;color:var(--ink)}
+  h1{font-size:clamp(2.4rem,1.4rem + 3.2vw,4.8rem);line-height:1;letter-spacing:-.025em}
+  h2{font-size:clamp(1.6rem,1.1rem + 1.6vw,2.6rem);line-height:1.08}
+  h3{font-size:22px;line-height:1.22}
+  h4{font-size:17px;line-height:1.28;font-weight:700}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+
+  /* Top strip: rates & indices specific to the trade */
+  .trade-strip{background:var(--ink);color:var(--paper);height:40px;display:flex;align-items:center;font:500 12px/1 "JetBrains Mono",monospace;letter-spacing:.02em;overflow:hidden}
+  .trade-strip .tag{background:var(--wine);color:#fff;padding:0 14px;height:100%;display:flex;align-items:center;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:10px;flex-shrink:0;font-family:"Inter",sans-serif}
+  .trade-strip .track{display:flex;gap:36px;padding:0 20px;white-space:nowrap;animation:tscroll 90s linear infinite}
+  .trade-strip .it{display:inline-flex;gap:8px;align-items:baseline}
+  .trade-strip .it .lbl{color:#a59b87}
+  .trade-strip .it b{color:#fff;font-weight:600}
+  .trade-strip .up{color:oklch(0.72 0.14 149)}
+  .trade-strip .dn{color:oklch(0.72 0.15 22)}
+  @keyframes tscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* Masthead */
+  .masthead{background:var(--paper);padding:20px 0 14px;border-bottom:1px solid var(--rule)}
+  .mast-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-mute);margin-bottom:18px}
+  .mast-date{text-transform:uppercase;letter-spacing:.18em;font-weight:600;color:var(--ink-soft);font-family:"JetBrains Mono",monospace;font-size:10.5px}
+  .mast-issue{font-style:italic;font-family:"Playfair Display",serif;font-size:13px}
+  .mast-actions{display:flex;gap:10px;align-items:center}
+  .mast-btn{border:1.5px solid var(--ink);padding:7px 14px;border-radius:2px;font:600 10.5px/1 "Inter";letter-spacing:.14em;text-transform:uppercase;cursor:pointer;background:transparent;color:var(--ink);transition:all .2s}
+  .mast-btn:hover{background:var(--ink);color:var(--paper)}
+  .mast-btn--sub{background:var(--wine);color:#fff;border-color:var(--wine)}
+  .mast-btn--sub:hover{background:var(--wine-deep);border-color:var(--wine-deep)}
+
+  .mast-main{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:end;padding:8px 0 6px}
+  .wordmark{
+    font-family:"Playfair Display",serif;
+    font-weight:900;
+    font-size:clamp(52px,6.4vw,108px);
+    line-height:.82;
+    letter-spacing:-.045em;
+    color:var(--ink);
+    font-style:italic;
+    position:relative;
+  }
+  .wordmark .dot{
+    display:inline-block;width:.32em;height:.32em;background:var(--wine);
+    border-radius:50%;vertical-align:baseline;margin:0 0 0 .06em;
+    transform:translateY(-.08em)
+  }
+  .mast-center{
+    align-self:end;padding-bottom:12px;border-left:1px solid var(--rule);border-right:1px solid var(--rule);
+    padding:6px 28px 12px;font-family:"Playfair Display",serif;font-style:italic;
+    color:var(--ink-soft);font-size:15px;line-height:1.4;text-align:center;max-width:38ch
+  }
+  .mast-center .q{color:var(--wine);font-weight:700;font-size:1.5em;line-height:0;vertical-align:-.28em;margin-right:3px}
+  .mast-stat{
+    display:flex;flex-direction:column;gap:4px;align-items:flex-end;justify-content:flex-end;padding-bottom:10px
+  }
+  .mast-stat .l{font:600 9.5px/1 "Inter";letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
+  .mast-stat .v{font-family:"Playfair Display",serif;font-weight:800;font-style:italic;font-size:34px;color:var(--wine);line-height:1;letter-spacing:-.02em}
+  .mast-stat .d{font:500 11px/1 "JetBrains Mono",monospace;color:var(--ink-mute)}
+
+  /* Section nav */
+  .sec-nav{border-top:3px double var(--ink);border-bottom:1px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:10}
+  .sec-nav-inner{display:flex;justify-content:space-between;align-items:center;height:48px;overflow-x:auto}
+  .sec-nav ul{display:flex;gap:26px;padding:0;margin:0;list-style:none;font:600 11.5px/1 "Inter";letter-spacing:.16em;text-transform:uppercase}
+  .sec-nav li a{color:var(--ink-soft);padding:4px 0;border-bottom:2px solid transparent;transition:all .2s;display:inline-block;white-space:nowrap}
+  .sec-nav li a:hover{color:var(--wine)}
+  .sec-nav li.active a{color:var(--ink);border-bottom-color:var(--wine)}
+  .sec-nav-right{display:flex;gap:16px;align-items:center;font:500 11px/1 "JetBrains Mono",monospace;color:var(--ink-mute);white-space:nowrap}
+  .sec-nav-right .live{display:inline-flex;align-items:center;gap:6px}
+  .sec-nav-right .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--wine);display:inline-block;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.35}}
+
+  /* Kickers */
+  .kicker{display:inline-block;font:700 10.5px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:var(--wine);margin-bottom:14px}
+  .kicker--oak{color:var(--oak)}
+  .kicker--ink{color:var(--ink)}
+  .kicker--band{background:var(--ink);color:var(--paper);padding:6px 10px;letter-spacing:.16em;white-space:nowrap}
+  .kicker--wine-band{background:var(--wine);color:#fff;padding:6px 10px;letter-spacing:.16em;white-space:nowrap}
+
+  /* Hero */
+  .hero{padding:36px 0 36px;border-bottom:1px solid var(--rule)}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:start}
+  .hero-main h1{margin-bottom:20px;text-wrap:balance;max-width:22ch}
+  .hero-main h1 em{font-style:italic;color:var(--wine)}
+  .hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:54ch;font-weight:400;margin-bottom:22px;font-family:"Playfair Display",serif;font-style:italic}
+  .hero-lede::first-letter{float:left;font-family:"Playfair Display",serif;font-size:74px;line-height:.82;font-weight:900;padding:8px 10px 0 0;color:var(--wine);font-style:normal}
+  .hero-meta{display:flex;gap:16px;align-items:center;padding-top:18px;border-top:1px solid var(--rule);font:500 12.5px/1 "Inter";color:var(--ink-mute);flex-wrap:wrap}
+  .byline{color:var(--ink);font-weight:600}
+  .byline::before{content:"Por ";color:var(--ink-mute);font-weight:400;font-style:italic;font-family:"Playfair Display",serif}
+  .dot-sep::before{content:"·";margin:0 4px;color:var(--ink-mute)}
+  .reading-time{display:inline-flex;gap:6px;align-items:center}
+
+  /* Hero imagery — bottle/terroir mock */
+  .hero-art{
+    aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:2px;
+    background:
+      radial-gradient(ellipse at 28% 80%, oklch(0.24 0.09 18) 0%, transparent 45%),
+      linear-gradient(165deg, oklch(0.32 0.08 22) 0%, oklch(0.18 0.06 20) 60%, oklch(0.12 0.04 20) 100%);
+  }
+  .hero-art .tag{position:absolute;top:14px;left:14px;background:var(--sauternes);color:var(--ink);padding:6px 10px;font:700 10px/1 "Inter";letter-spacing:.16em;text-transform:uppercase;z-index:3}
+  /* stylized bottle silhouette */
+  .hero-art .bottle{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;z-index:1}
+  .hero-art .bottle svg{width:58%;filter:drop-shadow(0 12px 24px rgba(0,0,0,.45))}
+  /* price annotation */
+  .hero-art .price{
+    position:absolute;top:22%;right:14px;z-index:2;color:#fff;
+    text-align:right;font-family:"JetBrains Mono",monospace;
+  }
+  .hero-art .price .y{font-size:10px;letter-spacing:.2em;opacity:.65;text-transform:uppercase}
+  .hero-art .price .v{font-family:"Playfair Display",serif;font-style:italic;font-weight:900;font-size:42px;line-height:1;color:var(--sauternes)}
+  .hero-art .price .d{font-size:11px;color:oklch(0.82 0.14 22);margin-top:4px}
+  .hero-art figcaption{position:absolute;left:16px;right:16px;bottom:14px;font:500 11.5px/1.4 "Inter";color:rgba(255,255,255,.78);z-index:2}
+  .hero-art figcaption b{color:#fff;font-weight:600}
+
+  /* Data block — trade-specific */
+  .data-block{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin:36px 0 0;background:var(--card)}
+  .data-cell{padding:22px 22px;border-right:1px solid var(--rule)}
+  .data-cell:last-child{border-right:none}
+  .data-cell .l{font:700 10px/1.1 "Inter";letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;height:22px}
+  .data-cell .v{font-family:"Playfair Display",serif;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1;margin-bottom:6px;font-style:italic;color:var(--ink)}
+  .data-cell .delta{font:600 11.5px/1 "JetBrains Mono",monospace;display:inline-flex;gap:4px;align-items:center}
+  .delta.up{color:var(--up)}
+  .delta.dn{color:var(--down)}
+  .delta.flat{color:var(--ink-mute)}
+
+  /* Section strips */
+  .sec-strip{border-top:4px double var(--ink);border-bottom:1px solid var(--rule);padding:18px 0;margin:56px 0 28px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .sec-strip h2{font-size:32px;font-style:italic;font-weight:800;letter-spacing:-.018em}
+  .sec-strip h2 .ast{color:var(--wine);font-style:normal}
+  .sec-strip .meta{font:600 11px/1 "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--ink-mute)}
+
+  /* Main layout */
+  .main-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;padding-bottom:48px}
+  .sidebar{display:flex;flex-direction:column;gap:24px}
+
+  /* 3-col editorial grid */
+  .grid-news{display:grid;grid-template-columns:repeat(3,1fr);gap:32px 28px;padding:0}
+  .article{display:flex;flex-direction:column}
+  .article .art-img{aspect-ratio:3/2;margin-bottom:14px;position:relative;overflow:hidden;border-radius:2px;background:var(--paper-2)}
+  .article h3{margin-bottom:8px}
+  .article h3 a:hover{color:var(--wine)}
+  .article .excerpt{color:var(--ink-soft);font-size:14px;line-height:1.55;margin-bottom:12px}
+  .article .foot{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule-soft);font:500 11.5px/1 "Inter";color:var(--ink-mute);display:flex;justify-content:space-between;align-items:center}
+
+  /* Image mocks — labelled terroirs */
+  .art-img::before{content:"";position:absolute;inset:0}
+  .art-img .lbl{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.55);color:#fff;padding:4px 8px;font:600 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;z-index:2}
+  .art-img .credit{position:absolute;bottom:8px;right:10px;font:500 9.5px/1 "JetBrains Mono",monospace;color:rgba(255,255,255,.78);letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.32);padding:3px 6px;z-index:2}
+
+  .bg-vine::before{background:
+    radial-gradient(circle at 30% 30%, oklch(0.38 0.08 20 / 0.55), transparent 45%),
+    linear-gradient(160deg, oklch(0.44 0.09 132) 0%, oklch(0.24 0.07 145) 100%)}
+  .bg-barrel::before{background:
+    radial-gradient(circle at 70% 40%, oklch(0.62 0.12 55 / 0.45), transparent 50%),
+    linear-gradient(180deg, oklch(0.44 0.10 50) 0%, oklch(0.24 0.08 40) 100%)}
+  .bg-gold::before{background:
+    radial-gradient(circle at 40% 60%, oklch(0.82 0.14 86 / 0.6), transparent 55%),
+    linear-gradient(160deg, oklch(0.68 0.14 78) 0%, oklch(0.34 0.10 60) 100%)}
+  .bg-slate::before{background:
+    radial-gradient(circle at 70% 30%, oklch(0.48 0.05 260 / 0.4), transparent 55%),
+    linear-gradient(180deg, oklch(0.28 0.04 240) 0%, oklch(0.14 0.03 250) 100%)}
+  .bg-claret::before{background:
+    radial-gradient(circle at 30% 70%, oklch(0.32 0.12 20 / 0.7), transparent 55%),
+    linear-gradient(170deg, oklch(0.38 0.13 18) 0%, oklch(0.16 0.08 15) 100%)}
+  .bg-rose::before{background:
+    radial-gradient(circle at 60% 40%, oklch(0.82 0.09 22 / 0.5), transparent 55%),
+    linear-gradient(160deg, oklch(0.76 0.10 18) 0%, oklch(0.44 0.12 22) 100%)}
+
+  /* Featured wide card */
+  .featured-wide{
+    grid-column:1 / -1;
+    display:grid;grid-template-columns:1.05fr 1fr;gap:32px;
+    background:var(--card);border:1px solid var(--rule);padding:28px;border-radius:2px;
+    align-items:center;
+  }
+  .featured-wide .art-img{aspect-ratio:5/4;margin:0}
+  .featured-wide h3{font-size:clamp(22px, 1.2rem + 0.8vw, 30px);line-height:1.12;margin-bottom:12px}
+  .featured-wide .excerpt{font-family:"Playfair Display",serif;font-style:italic;font-size:17px;color:var(--ink-soft);line-height:1.5}
+
+  /* En Primeur table */
+  .primeur{background:var(--card);border:1px solid var(--ink);margin:20px 0 0;padding:0}
+  .primeur h3{padding:18px 22px 14px;border-bottom:2px solid var(--ink);font-family:"Playfair Display",serif;font-style:italic;font-weight:800;font-size:22px;display:flex;justify-content:space-between;align-items:baseline}
+  .primeur h3 .by{font:600 10px/1 "Inter";letter-spacing:.18em;color:var(--ink-mute);text-transform:uppercase}
+  .primeur table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .primeur th{text-align:left;font:700 10px/1.2 "Inter";letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);padding:12px 22px;background:var(--paper-2);border-bottom:1px solid var(--rule)}
+  .primeur th.r{text-align:right}
+  .primeur td{padding:14px 22px;border-bottom:1px solid var(--rule-soft);vertical-align:middle}
+  .primeur tr:last-child td{border-bottom:none}
+  .primeur tr:hover td{background:rgba(201,191,168,.15)}
+  .primeur td.r{text-align:right;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:13px;white-space:nowrap}
+  .primeur td .w{font-family:"Playfair Display",serif;font-weight:800;font-style:italic;font-size:17px;letter-spacing:-.01em}
+  .primeur td .ap{font:500 11px/1.3 "Inter";color:var(--ink-mute);margin-top:2px}
+  .primeur td .reg{font:600 10.5px/1 "Inter";letter-spacing:.14em;text-transform:uppercase;color:var(--wine)}
+  .primeur td .sc{font-family:"Playfair Display",serif;font-style:italic;font-weight:800;font-size:22px;color:var(--ink)}
+  .primeur td .chg-up{color:var(--up)}
+  .primeur td .chg-dn{color:var(--down)}
+  .primeur .spark{width:72px;height:24px;vertical-align:middle}
+
+  /* Opinion strip */
+  .opinion{background:var(--card);border:1px solid var(--rule);padding:32px;margin:0 0 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .op-card{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start}
+  .op-photo{width:64px;height:64px;border-radius:50%;flex-shrink:0;position:relative;overflow:hidden;border:1px solid var(--rule)}
+  .op-photo.a{background:radial-gradient(circle at 35% 30%, oklch(0.72 0.09 40), oklch(0.38 0.10 18))}
+  .op-photo.b{background:radial-gradient(circle at 35% 30%, oklch(0.70 0.10 130), oklch(0.30 0.08 140))}
+  .op-photo.c{background:radial-gradient(circle at 35% 30%, oklch(0.78 0.12 78), oklch(0.42 0.10 58))}
+  .op-card h4{font-family:"Playfair Display",serif;font-size:17px;line-height:1.25;margin-bottom:8px;font-style:italic}
+  .op-card h4 a:hover{color:var(--wine)}
+  .op-author{font:700 10.5px/1 "Inter";letter-spacing:.18em;text-transform:uppercase;color:var(--wine);margin-bottom:6px}
+  .op-role{font:500 11px/1 "Inter";color:var(--ink-mute);font-style:italic;font-family:"Playfair Display",serif;margin-bottom:10px}
+  .op-excerpt{font-size:13px;color:var(--ink-soft);line-height:1.55}
+
+  /* Sidebar bits */
+  .iab-box{background:var(--card);border:1px solid var(--rule);padding:14px}
+  .iab-box .iab-label{font:600 9.5px/1 "Inter";letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;display:flex;justify-content:space-between}
+  .iab-box .iab-label span:last-child{color:var(--ink-mute);font-weight:500;font-family:"JetBrains Mono",monospace}
+  .iab-slot{background:var(--paper-2);aspect-ratio:300/250;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink-mute);font:500 12px/1.4 "Inter";text-align:center;gap:6px;position:relative;overflow:hidden;border:1px dashed var(--rule)}
+  .iab-slot.half{aspect-ratio:300/600}
+  .iab-slot strong{font-weight:700;color:var(--ink-soft);font-size:13px;letter-spacing:.02em}
+  .iab-slot .dim{font-size:11px;color:var(--ink-mute);font-family:"JetBrains Mono",monospace}
+  .iab-slot.promo{background:var(--wine);color:var(--paper);border-style:solid;border-color:var(--wine);padding:20px;text-align:left;align-items:flex-start;justify-content:space-between;aspect-ratio:300/250}
+  .iab-slot.promo .top{display:flex;flex-direction:column;gap:6px}
+  .iab-slot.promo .kicker{color:var(--sauternes);margin:0}
+  .iab-slot.promo h4{font-family:"Playfair Display",serif;font-size:22px;font-weight:800;color:#fff;line-height:1.12;font-style:italic}
+  .iab-slot.promo .cta{font:600 11px/1 "Inter";letter-spacing:.14em;text-transform:uppercase;color:var(--sauternes);display:inline-flex;gap:6px;align-items:center}
+
+  /* Most read */
+  .most-read{background:transparent;border:1px solid var(--ink);padding:20px}
+  .most-read > h4{font-family:"Playfair Display",serif;font-size:20px;margin:0 0 12px;font-style:italic;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+  .most-read ol{padding:0;margin:0;list-style:none;counter-reset:mr}
+  .most-read li{counter-increment:mr;display:grid;grid-template-columns:38px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--rule-soft);align-items:start}
+  .most-read li:last-child{border:none;padding-bottom:0}
+  .most-read li::before{content:counter(mr,decimal-leading-zero);font-family:"Playfair Display",serif;font-size:28px;font-weight:900;font-style:italic;color:var(--wine);line-height:1;padding-top:2px}
+  .most-read li a{font:600 13.5px/1.35 "Inter";color:var(--ink);display:block;margin-bottom:4px}
+  .most-read li a:hover{color:var(--wine)}
+  .most-read li .cat{font:700 9.5px/1 "Inter";letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute)}
+
+  /* Cellar-index card (signature widget) */
+  .cellar-idx{border:2px solid var(--ink);padding:20px;background:var(--paper)}
+  .cellar-idx h5{font:700 10px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin:0 0 6px}
+  .cellar-idx .name{font-family:"Playfair Display",serif;font-style:italic;font-weight:800;font-size:22px;line-height:1.1;margin-bottom:14px}
+  .cellar-idx .num{font-family:"Playfair Display",serif;font-style:italic;font-weight:900;font-size:48px;line-height:1;letter-spacing:-.02em;color:var(--wine)}
+  .cellar-idx .chg{font:600 12px/1 "JetBrains Mono",monospace;color:var(--up);margin:6px 0 14px;display:flex;gap:8px;align-items:center}
+  .cellar-idx .chg .badge{background:var(--up);color:#fff;padding:3px 6px;border-radius:2px;font-weight:700;font-size:10.5px;letter-spacing:.08em}
+  .cellar-idx .bars{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;align-items:end;height:48px;margin:10px 0 6px}
+  .cellar-idx .bars span{background:var(--oak);border-radius:1px}
+  .cellar-idx .x{display:flex;justify-content:space-between;font:500 10px/1 "JetBrains Mono",monospace;color:var(--ink-mute)}
+
+  /* Map / sourcing callout */
+  .sourcing{background:var(--ink);color:var(--paper);padding:24px;border-radius:2px}
+  .sourcing h5{font-family:"Playfair Display",serif;font-style:italic;font-weight:800;font-size:20px;color:#fff;margin:0 0 6px}
+  .sourcing p{font-size:12.5px;color:#bfb4a0;line-height:1.5;margin:0 0 14px;font-family:"Playfair Display",serif;font-style:italic}
+  .sourcing ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .sourcing li{display:flex;justify-content:space-between;font:500 12.5px/1 "Inter";border-bottom:1px dashed #3d342c;padding-bottom:10px}
+  .sourcing li:last-child{border:none;padding-bottom:0}
+  .sourcing li .n{color:#fff;font-weight:600}
+  .sourcing li .r{color:var(--sauternes);font-family:"JetBrains Mono",monospace}
+
+  /* Footer */
+  footer{background:var(--ink);color:var(--paper);padding:56px 0 24px;margin-top:40px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid #2c2a32}
+  .foot-brand .wordmark{color:var(--paper);font-size:48px}
+  .foot-brand p{font-family:"Playfair Display",serif;font-style:italic;color:#a59b87;font-size:14px;max-width:36ch;margin:14px 0 18px;line-height:1.5}
+  .foot-social{display:flex;gap:10px}
+  .foot-social a{width:34px;height:34px;border:1px solid #3c3a42;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .foot-social a:hover{background:var(--wine);border-color:var(--wine)}
+  .foot-social svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .foot-col h5{font:700 10.5px/1 "Inter";letter-spacing:.2em;text-transform:uppercase;color:var(--paper);margin:0 0 16px}
+  .foot-col ul{padding:0;margin:0;list-style:none}
+  .foot-col li{margin-bottom:10px}
+  .foot-col a{color:#a59b87;font-size:13px;transition:color .2s}
+  .foot-col a:hover{color:var(--sauternes)}
+  .foot-legal{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:11.5px;color:#7a6f62;flex-wrap:wrap;gap:12px;font-family:"JetBrains Mono",monospace}
+  .foot-legal .links{display:flex;gap:20px}
+  .foot-legal a:hover{color:var(--paper)}
+
+  @media (max-width:980px){
+    .hero-grid,.grid-news,.main-layout,.opinion,.foot-grid,.featured-wide{grid-template-columns:1fr}
+    .data-block{grid-template-columns:repeat(2,1fr)}
+    .data-cell{border-bottom:1px solid var(--rule)}
+    .data-cell:nth-child(even){border-right:none}
+    .mast-main{grid-template-columns:1fr;gap:16px}
+    .mast-center,.mast-stat{border:none;padding:0;text-align:left;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<!-- Trade strip -->
+<div class="trade-strip" aria-label="Indicadores del sector">
+  <div class="tag">Sector · En vivo</div>
+  <div class="track">
+    <span class="it"><span class="lbl">Liv-ex 100</span><b>331,4</b><span class="up">▲ 0,62%</span></span>
+    <span class="it"><span class="lbl">Liv-ex Fine Wine 1000</span><b>352,1</b><span class="up">▲ 0,28%</span></span>
+    <span class="it"><span class="lbl">Bordeaux 500</span><b>289,7</b><span class="dn">▼ 0,41%</span></span>
+    <span class="it"><span class="lbl">Champagne 50</span><b>612,9</b><span class="up">▲ 1,08%</span></span>
+    <span class="it"><span class="lbl">Burgundy 150</span><b>708,2</b><span class="dn">▼ 0,12%</span></span>
+    <span class="it"><span class="lbl">Rioja barrica · €/kg</span><b>1,82</b><span class="up">▲ 3,4%</span></span>
+    <span class="it"><span class="lbl">Cognac eaux-de-vie · hl</span><b>€1.240</b><span class="dn">▼ 2,1%</span></span>
+    <span class="it"><span class="lbl">Corcho natural · tm</span><b>€6.820</b><span class="up">▲ 0,9%</span></span>
+    <span class="it"><span class="lbl">Vendimia ES 2026 · prev.</span><b>36,4 Mhl</b><span class="dn">▼ 8,2% a/a</span></span>
+    <!-- duplicate for marquee -->
+    <span class="it"><span class="lbl">Liv-ex 100</span><b>331,4</b><span class="up">▲ 0,62%</span></span>
+    <span class="it"><span class="lbl">Liv-ex Fine Wine 1000</span><b>352,1</b><span class="up">▲ 0,28%</span></span>
+    <span class="it"><span class="lbl">Bordeaux 500</span><b>289,7</b><span class="dn">▼ 0,41%</span></span>
+    <span class="it"><span class="lbl">Champagne 50</span><b>612,9</b><span class="up">▲ 1,08%</span></span>
+    <span class="it"><span class="lbl">Burgundy 150</span><b>708,2</b><span class="dn">▼ 0,12%</span></span>
+    <span class="it"><span class="lbl">Rioja barrica · €/kg</span><b>1,82</b><span class="up">▲ 3,4%</span></span>
+  </div>
+</div>
+
+<!-- Masthead -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-top">
+      <div class="mast-date">Vie · 24 Abr 2026 · Edición Rioja · Nº 412</div>
+      <div class="mast-issue">« Del pago al balance. »</div>
+      <div class="mast-actions">
+        <button class="mast-btn">Iniciar sesión</button>
+        <button class="mast-btn mast-btn--sub">Suscribirse · €24 / mes</button>
+      </div>
+    </div>
+    <div class="mast-main">
+      <div class="wordmark">Bodega<span class="dot"></span></div>
+      <div class="mast-center">
+        <span class="q">“</span>La economía del vino y los destilados, contada por quien sabe leer un balance y una añada.
+      </div>
+      <div class="mast-stat">
+        <span class="l">Índice Bodega · 24 Abr</span>
+        <span class="v">342,80</span>
+        <span class="d mono" style="color:var(--up)">▲ 0,74 % · +12,3 YTD</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Section nav -->
+<nav class="sec-nav">
+  <div class="wrap sec-nav-inner">
+    <ul>
+      <li class="active"><a href="#">Portada</a></li>
+      <li><a href="#">Mercados</a></li>
+      <li><a href="#">En Primeur</a></li>
+      <li><a href="#">Bodegas</a></li>
+      <li><a href="#">Destilados</a></li>
+      <li><a href="#">Regulación</a></li>
+      <li><a href="#">Añadas</a></li>
+      <li><a href="#">Opinión</a></li>
+    </ul>
+    <div class="sec-nav-right">
+      <span class="live">Actualizado 13:42 CET</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Mercados · Burdeos · En Primeur 2025</span>
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1>Burdeos firma una <em>en primeur</em> a la baja por tercera añada seguida. El mercado ya no pregunta por qué — pregunta cuánto más.</h1>
+        <p class="hero-lede">Los châteaux de la rive gauche están recortando precios entre un 18 % y un 32 %. Los negociants piden más: la plaza de Londres descuenta –40 %. Alguien, esta vez, tendrá que perder dinero con método.</p>
+        <div class="hero-meta">
+          <span class="byline">Inés Balbuena Arrieta</span>
+          <span class="dot-sep">Corresponsal · Burdeos</span>
+          <span class="dot-sep reading-time">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            11 min lectura
+          </span>
+          <span class="dot-sep" style="color:var(--wine);font-weight:600">◆ Exclusivo suscriptores</span>
+        </div>
+      </div>
+      <figure class="hero-art">
+        <span class="tag">Dossier</span>
+        <div class="price">
+          <div class="y">Ex-château · release</div>
+          <div class="v">€ 168</div>
+          <div class="d">▼ –24 % vs añada 2024</div>
+        </div>
+        <div class="bottle" aria-hidden="true">
+          <!-- simple bottle silhouette -->
+          <svg viewBox="0 0 200 520" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bottleGlass" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="oklch(0.18 0.06 20)"/>
+                <stop offset=".5" stop-color="oklch(0.30 0.10 18)"/>
+                <stop offset="1" stop-color="oklch(0.14 0.05 20)"/>
+              </linearGradient>
+              <linearGradient id="labelG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f5f1e8"/>
+                <stop offset="1" stop-color="#e6ddc6"/>
+              </linearGradient>
+            </defs>
+            <!-- capsule -->
+            <rect x="78" y="10" width="44" height="92" fill="oklch(0.22 0.03 40)"/>
+            <rect x="78" y="90" width="44" height="6" fill="oklch(0.16 0.02 40)"/>
+            <!-- neck -->
+            <rect x="82" y="96" width="36" height="94" fill="url(#bottleGlass)"/>
+            <!-- shoulder + body -->
+            <path d="M82 190 Q40 210 40 260 L40 500 Q40 512 52 512 L148 512 Q160 512 160 500 L160 260 Q160 210 118 190 Z" fill="url(#bottleGlass)"/>
+            <!-- highlight -->
+            <path d="M54 270 Q50 380 58 492" stroke="oklch(0.55 0.14 20 / 0.35)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- label -->
+            <rect x="52" y="308" width="96" height="156" fill="url(#labelG)" stroke="oklch(0.24 0.04 40)" stroke-width="0.8"/>
+            <g font-family="Playfair Display, serif" text-anchor="middle" fill="#1a1410">
+              <text x="100" y="338" font-size="11" font-weight="700" letter-spacing="3">CHÂTEAU</text>
+              <text x="100" y="374" font-size="22" font-style="italic" font-weight="900">Bel-Écart</text>
+              <text x="100" y="398" font-size="9" letter-spacing="2" fill="oklch(0.38 0.108 18.5)">MARGAUX · GRAND CRU</text>
+              <line x1="68" y1="408" x2="132" y2="408" stroke="oklch(0.38 0.108 18.5)" stroke-width="0.8"/>
+              <text x="100" y="440" font-size="24" font-style="italic" font-weight="900" fill="oklch(0.38 0.108 18.5)">2025</text>
+              <text x="100" y="458" font-size="8" letter-spacing="2">MIS EN BOUTEILLE AU CHÂTEAU</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Château Bel-Écart 2025 · primera tranche.</b> La más baja en euros desde 2014. Fuente: Liv-ex / Place de Bordeaux.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Data block -->
+<div class="wrap">
+  <div class="data-block">
+    <div class="data-cell">
+      <div class="l">Liv-ex Fine Wine 100</div>
+      <div class="v">331,4</div>
+      <div class="delta up">▲ +0,62 % · 24h</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Bordeaux 500 · 12m</div>
+      <div class="v">–14,8 %</div>
+      <div class="delta dn">▼ tercer año negativo</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Vendimia UE 2026 (prev.)</div>
+      <div class="v">144 Mhl</div>
+      <div class="delta dn">▼ –6,3 % vs 5 añadas</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Cognac · exportación</div>
+      <div class="v">€3,48 Bn</div>
+      <div class="delta dn">▼ –18 % · arancel 35% CN</div>
+    </div>
+    <div class="data-cell">
+      <div class="l">Margen medio · bodega Rioja</div>
+      <div class="v">11,4 %</div>
+      <div class="delta flat">● estable · 2021–2025</div>
+    </div>
+  </div>
+</div>
+
+<!-- Featured grid -->
+<div class="wrap">
+  <div class="sec-strip">
+    <h2>La mesa del día <span class="ast">*</span></h2>
+    <div class="meta">7 piezas · curadas por la redacción · viernes</div>
+  </div>
+</div>
+
+<div class="wrap main-layout">
+  <div>
+    <div class="grid-news">
+
+      <!-- featured wide -->
+      <article class="article featured-wide">
+        <div class="art-img bg-claret">
+          <span class="lbl">Cognac · Charente</span>
+          <span class="credit">Bodega / A. Perret</span>
+        </div>
+        <div>
+          <span class="kicker kicker--wine-band">Destilados · Exportación</span>
+          <h3><a href="#">La casa Rémy-Courvoisier guarda 14 meses de stock: cómo el <em>arancel chino</em> reescribió la contabilidad del cognac en seis semanas.</a></h3>
+          <p class="excerpt">Los grandes grupos del Charente apostaron toda una década por un consumidor que hoy no puede pagar el impuesto. La cadena de suministro es lenta — los errores, largos. Hemos leído las actas de tres consejos.</p>
+          <div class="foot">
+            <span>Adrien Lemaître · París</span>
+            <span>Hace 3 h · 14 min</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-vine">
+          <span class="lbl">Ribera · Valladolid</span>
+          <span class="credit">EFE / M. Paredes</span>
+        </div>
+        <span class="kicker">Bodegas · España</span>
+        <h3><a href="#">Vega Real compra 82 ha en Peñafiel y paga en añadas: la ingeniería fiscal que imita a los châteaux.</a></h3>
+        <p class="excerpt">El vendedor cobra en botellas durante 12 ejercicios. Hacienda tendrá que inventar una casilla — y probablemente lo haga.</p>
+        <div class="foot">
+          <span>Clara Mendoza</span>
+          <span>Hace 5 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-gold">
+          <span class="lbl">Champagne · Épernay</span>
+          <span class="credit">Reuters / J. Girard</span>
+        </div>
+        <span class="kicker kicker--oak">Champagne · Análisis</span>
+        <h3><a href="#">El comité interprofesional recorta el rendimiento autorizado a 9 000 kg/ha. Las maisons grandes ya lo habían pactado.</a></h3>
+        <p class="excerpt">El 2026 no será una añada de volumen. Será una añada de precio. El CIVC lo firma; Moët lo había presupuestado hace tres trimestres.</p>
+        <div class="foot">
+          <span>Juliette Marchand</span>
+          <span>Hace 6 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-barrel">
+          <span class="lbl">Kentucky · Frankfort</span>
+          <span class="credit">AP / T. Walker</span>
+        </div>
+        <span class="kicker">Whisky · M&amp;A</span>
+        <h3><a href="#">Pernod compra su tercera destilería de <em>small batch</em> en Kentucky y acepta un múltiplo de 14× EBITDA.</a></h3>
+        <p class="excerpt">Pagar caro tiene lógica si lo que compras es madurez de barrica — stock que no se puede fabricar, sólo esperar.</p>
+        <div class="foot">
+          <span>E. Thornbury</span>
+          <span>Hace 7 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-slate">
+          <span class="lbl">Mosela · Bernkastel</span>
+          <span class="credit">DPA / S. Roth</span>
+        </div>
+        <span class="kicker kicker--ink">Regulación · Bruselas</span>
+        <h3><a href="#">La CE quiere un etiquetado nutricional unificado antes de 2027. Alemania ya lo imprime — el sur lo litiga.</a></h3>
+        <p class="excerpt">Italia y España defienden una excepción cultural; Francia, un calendario largo. Los envases, entretanto, se piden a imprenta con un año de antelación.</p>
+        <div class="foot">
+          <span>Lucía Hernández</span>
+          <span>Hace 9 h</span>
+        </div>
+      </article>
+
+      <article class="article">
+        <div class="art-img bg-rose">
+          <span class="lbl">Provence · Côtes</span>
+          <span class="credit">AFP / L. Bouvet</span>
+        </div>
+        <span class="kicker">Rosado · Consumo</span>
+        <h3><a href="#">El rosado de Provenza cae un 11 % en valor: los EE. UU. descubren el rosado de Navarra (y paga la mitad).</a></h3>
+        <p class="excerpt">La sustitución de marca país es silenciosa. Las pequeñas bodegas francesas hablan de «fatiga varietal»; los importadores, de precio.</p>
+        <div class="foot">
+          <span>Irene Baquero</span>
+          <span>Hace 11 h</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- En Primeur table -->
+    <div class="sec-strip">
+      <h2>En primeur <span class="ast">·</span> tablero de salida</h2>
+      <div class="meta">Añada 2025 · tranche I · actualizado 13:42</div>
+    </div>
+
+    <div class="primeur" role="table" aria-label="Tabla En Primeur">
+      <h3>Bordeaux 2025 · primeras salidas <span class="by">Fuente · Liv-ex / Place de Bordeaux</span></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Vino</th>
+            <th>Región</th>
+            <th>Puntuación</th>
+            <th class="r">Ex-château</th>
+            <th class="r">vs 2024</th>
+            <th class="r">Tendencia 30d</th>
+            <th class="r">Mercado 📍</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="w">Bel-Écart</div><div class="ap">Margaux · Grand Cru Classé</div></td>
+            <td><span class="reg">Margaux</span></td>
+            <td><span class="sc">96</span></td>
+            <td class="r">€ 168,00</td>
+            <td class="r chg-dn">▼ –24,0 %</td>
+            <td class="r">
+              <svg class="spark" viewBox="0 0 72 24" preserveAspectRatio="none"><polyline fill="none" stroke="oklch(0.48 0.19 22)" stroke-width="1.6" points="0,6 8,9 16,8 24,12 32,10 40,15 48,14 56,18 64,17 72,20"/></svg>
+            </td>
+            <td class="r">LON · ferme</td>
+          </tr>
+          <tr>
+            <td><div class="w">Domaine Vigier</div><div class="ap">Pauillac · 2ème cru</div></td>
+            <td><span class="reg">Pauillac</span></td>
+            <td><span class="sc">94</span></td>
+            <td class="r">€ 112,00</td>
+            <td class="r chg-dn">▼ –18,2 %</td>
+            <td class="r">
+              <svg class="spark" viewBox="0 0 72 24" preserveAspectRatio="none"><polyline fill="none" stroke="oklch(0.48 0.19 22)" stroke-width="1.6" points="0,8 8,10 16,9 24,11 32,13 40,12 48,15 56,14 64,17 72,18"/></svg>
+            </td>
+            <td class="r">HK · oferta fría</td>
+          </tr>
+          <tr>
+            <td><div class="w">Clos Montaigne</div><div class="ap">Saint-Émilion · Premier</div></td>
+            <td><span class="reg">St-Émilion</span></td>
+            <td><span class="sc">97</span></td>
+            <td class="r">€ 245,00</td>
+            <td class="r chg-dn">▼ –9,6 %</td>
+            <td class="r">
+              <svg class="spark" viewBox="0 0 72 24" preserveAspectRatio="none"><polyline fill="none" stroke="oklch(0.52 0.14 149)" stroke-width="1.6" points="0,14 8,13 16,12 24,10 32,11 40,9 48,8 56,10 64,7 72,6"/></svg>
+            </td>
+            <td class="r">NY · sólido</td>
+          </tr>
+          <tr>
+            <td><div class="w">La Ferrère</div><div class="ap">Pomerol · Grand Vin</div></td>
+            <td><span class="reg">Pomerol</span></td>
+            <td><span class="sc">95</span></td>
+            <td class="r">€ 198,00</td>
+            <td class="r chg-up">▲ +2,1 %</td>
+            <td class="r">
+              <svg class="spark" viewBox="0 0 72 24" preserveAspectRatio="none"><polyline fill="none" stroke="oklch(0.52 0.14 149)" stroke-width="1.6" points="0,16 8,15 16,13 24,14 32,11 40,12 48,9 56,10 64,7 72,5"/></svg>
+            </td>
+            <td class="r">LON · demanda</td>
+          </tr>
+          <tr>
+            <td><div class="w">Ch. Bayssens</div><div class="ap">Graves · Pessac-Léognan</div></td>
+            <td><span class="reg">Pessac</span></td>
+            <td><span class="sc">92</span></td>
+            <td class="r">€ 78,00</td>
+            <td class="r chg-dn">▼ –32,0 %</td>
+            <td class="r">
+              <svg class="spark" viewBox="0 0 72 24" preserveAspectRatio="none"><polyline fill="none" stroke="oklch(0.48 0.19 22)" stroke-width="1.6" points="0,4 8,6 16,5 24,9 32,8 40,12 48,11 56,15 64,18 72,22"/></svg>
+            </td>
+            <td class="r">LON · débil</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Opinion strip -->
+    <div class="sec-strip" style="margin-top:52px">
+      <h2>Firmas <span class="ast">·</span> opinión</h2>
+      <div class="meta">Tres voces · viernes</div>
+    </div>
+    <div class="opinion">
+      <div class="op-card">
+        <div class="op-photo a"></div>
+        <div>
+          <div class="op-author">Rémi Garnier</div>
+          <div class="op-role">Ex-courtier · Place de Bordeaux</div>
+          <h4><a href="#">El error de llamar <em>corrección</em> a un cambio de régimen. Los años 2010 no vuelven porque no eran normales.</a></h4>
+          <p class="op-excerpt">El fine wine fue un activo monetario durante doce años de tipos cero. Se comportó como tal. Devolverlo al gesto agrícola tomará tiempo y provocará balances peores.</p>
+        </div>
+      </div>
+      <div class="op-card">
+        <div class="op-photo b"></div>
+        <div>
+          <div class="op-author">Elsa Pombo</div>
+          <div class="op-role">Economista agraria · CNRS</div>
+          <h4><a href="#">La D.O. es un activo intangible que no aparece en ningún balance — y que una mala regulación destruye en un pleno.</a></h4>
+          <p class="op-excerpt">Bruselas, Madrid y Logroño están discutiendo, en paralelo y sin hablarse, tres medidas cuya suma equivale a rebajar el valor de marca entre un 7 % y un 12 %. Nadie lo está contando así.</p>
+        </div>
+      </div>
+      <div class="op-card">
+        <div class="op-photo c"></div>
+        <div>
+          <div class="op-author">Darío Cantú</div>
+          <div class="op-role">Importador · Brooklyn</div>
+          <h4><a href="#">El distribuidor americano compra <em>relato</em>, no añada. Aprender a venderlo es casi más importante que el vino.</a></h4>
+          <p class="op-excerpt">El consumidor millennial paga la marca de terruño, no la del productor. Las bodegas españolas lo han entendido mejor que las francesas — y los números del último trimestre lo confirman.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="cellar-idx">
+      <h5>Widget exclusivo</h5>
+      <div class="name">Índice Bodega <span style="color:var(--wine)">·</span> 52 semanas</div>
+      <div class="num">342,80</div>
+      <div class="chg"><span class="badge">▲ 12,3 %</span><span>YTD · +2,4 % mensual</span></div>
+      <div class="bars" aria-hidden="true">
+        <span style="height:36%"></span>
+        <span style="height:42%"></span>
+        <span style="height:38%"></span>
+        <span style="height:48%"></span>
+        <span style="height:56%"></span>
+        <span style="height:52%"></span>
+        <span style="height:64%"></span>
+        <span style="height:72%"></span>
+        <span style="height:68%"></span>
+        <span style="height:78%"></span>
+        <span style="height:86%"></span>
+        <span style="height:94%"></span>
+      </div>
+      <div class="x"><span>M · 25</span><span>A · 26</span></div>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Publicidad</span><span>NP-3 · 300×250</span></div>
+      <div class="iab-slot">
+        <strong>IAB Medium Rectangle</strong>
+        <span class="dim">300 × 250</span>
+      </div>
+    </div>
+
+    <div class="most-read">
+      <h4>Lo más leído <span style="color:var(--wine)">·</span> semana</h4>
+      <ol>
+        <li>
+          <a href="#">El cognac firma su peor trimestre desde 2009: quién tiene el stock y quién la deuda.</a>
+          <span class="cat">Destilados</span>
+        </li>
+        <li>
+          <a href="#">Rioja Alavesa: la doble D.O. como laboratorio de fusiones silenciosas.</a>
+          <span class="cat">Bodegas · M&amp;A</span>
+        </li>
+        <li>
+          <a href="#">Champagne: por qué los rendimientos bajan antes que los precios.</a>
+          <span class="cat">Añadas</span>
+        </li>
+        <li>
+          <a href="#">Tres châteaux ya cotizan su 2025 bajo el precio del 2019.</a>
+          <span class="cat">En Primeur</span>
+        </li>
+        <li>
+          <a href="#">Etiquetado UE 2027: el coste por SKU que nadie ha presupuestado.</a>
+          <span class="cat">Regulación</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="sourcing">
+      <h5>Trazabilidad de la semana</h5>
+      <p>El precio pagado al viticultor en cinco regiones, comparado con el de hace doce meses.</p>
+      <ul>
+        <li><span class="n">Rioja Alavesa</span><span class="r">€ 1,82 / kg · ▲ 3,4 %</span></li>
+        <li><span class="n">Ribera del Duero</span><span class="r">€ 2,04 / kg · ▲ 1,1 %</span></li>
+        <li><span class="n">Priorat</span><span class="r">€ 3,11 / kg · ● 0,0 %</span></li>
+        <li><span class="n">Cognac (eaux-de-vie)</span><span class="r">€ 1 240 / hl · ▼ 2,1 %</span></li>
+        <li><span class="n">Champagne (raisin)</span><span class="r">€ 7,20 / kg · ▲ 0,6 %</span></li>
+      </ul>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Patrocinado</span><span>NP-3 · 300×250</span></div>
+      <div class="iab-slot promo">
+        <div class="top">
+          <span class="kicker">Bodega <span style="color:#fff">Pro</span></span>
+          <h4>Los dossiers que el negociant lee antes de abrir la campaña.</h4>
+        </div>
+        <span class="cta">Probar 30 días · €1 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </div>
+
+    <div class="iab-box">
+      <div class="iab-label"><span>Publicidad</span><span>NP-7 · 300×600</span></div>
+      <div class="iab-slot half">
+        <strong>IAB Half Page</strong>
+        <span class="dim">300 × 600</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="wordmark">Bodega<span class="dot" style="background:var(--sauternes)"></span></div>
+        <p>Una redacción especializada en la economía del vino y los destilados. Publicada desde Logroño. Escrita para quien lee un balance y una añada con la misma paciencia.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="RSS"><svg viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Secciones</h5>
+        <ul>
+          <li><a href="#">Mercados</a></li>
+          <li><a href="#">En Primeur</a></li>
+          <li><a href="#">Bodegas</a></li>
+          <li><a href="#">Destilados</a></li>
+          <li><a href="#">Regulación</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Redacción</h5>
+        <ul>
+          <li><a href="#">Manifiesto</a></li>
+          <li><a href="#">Equipo</a></li>
+          <li><a href="#">Metodología</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Suscripción</h5>
+        <ul>
+          <li><a href="#">Bodega Pro</a></li>
+          <li><a href="#">Boletines</a></li>
+          <li><a href="#">El Índice</a></li>
+          <li><a href="#">Regalar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Transparencia</h5>
+        <ul>
+          <li><a href="#">Código editorial</a></li>
+          <li><a href="#">Propiedad</a></li>
+          <li><a href="#">Correcciones</a></li>
+          <li><a href="#">Quejas</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© Bodega Ediciones S.L. · Edición Nº 412 · Construido sobre SYX × Atlas</span>
+      <div class="links">
+        <a href="#">Aviso legal</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
